@@ -96,11 +96,19 @@ CREATE INDEX idx_{name}_value ON {name}(value DESC);
 
 ## Configuration
 
-- `BASE_DIR` — directory where database files are stored
-- WAL journal mode enabled for better concurrent performance
-- Busy timeout set to 5 seconds for lock contention handling
+Set your authentication token in the Flask app to validate incoming requests from Roblox:
+
+```python
+TOKEN = "your-secret-token-here"
+```
+
+On the Roblox side, set the matching token and server URL:
+
+```lua
+local URL = "https://yourdomain.com"
+local token = "your-secret-token-here"
+```
 - Snapshots trigger every 300 seconds (5 minutes)
-- Snapshot lock files expire after 600 seconds (10 minutes)
 
 ## Setup
 
