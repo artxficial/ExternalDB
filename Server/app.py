@@ -227,7 +227,7 @@ def download_log():
 @app.route("/git_update", methods=["POST"])
 def git_update():
     try:
-        repo_path = os.path.dirname(os.path.abspath(__file__))
+        repo_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         repo = git.Repo(repo_path)
         origin = repo.remotes.origin
 
