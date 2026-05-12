@@ -6,15 +6,13 @@ import subprocess
 import time
 import atexit
 
+from config import TOKEN, SERVER_URL
+
 # ===== CONFIG =====
-URL = "http://localhost:5000"
 PLACE_ID = 99999
 DATASTORE = "TestStore"
 TEST_KEY = 123456
 # ==================
-
-sys.path.insert(0, ".")
-from config import TOKEN
 
 passed = 0
 failed = 0
@@ -22,19 +20,21 @@ failed = 0
 def test(name, payload, expect_success=True):
     global passed, failed
     try:
-        r = requests.post(URL, json=payload, timeout=10)
+        start = time.time()
+        r = requests.post(SERVER_URL, json=payload, timeout=10)
+        elapsed = (time.time() - start) * 1000
         data = r.json()
 
         if expect_success and data.get("status") == "success":
-            print(f"  PASS  {name}")
+            print(f"  PASS  {name} ({elapsed:.0f}ms)")
             passed += 1
             return data.get("results")
         elif not expect_success and r.status_code != 200:
-            print(f"  PASS  {name} (expected failure: {data.get('error')})")
+            print(f"  PASS  {name} ({elapsed:.0f}ms) (expected failure: {data.get('error')})")
             passed += 1
             return None
         else:
-            print(f"  FAIL  {name} -> {data}")
+            print(f"  FAIL  {name} ({elapsed:.0f}ms) -> {data}")
             failed += 1
             return None
     except Exception as e:
@@ -150,7 +150,7 @@ def test_cleanup():
 def test_health():
     global passed, failed
     try:
-        r = requests.get(f"{URL}/health", timeout=5)
+        r = requests.get(f"{SERVER_URL}/health", timeout=5)
         if r.status_code == 200:
             print("  PASS  Health endpoint")
             passed += 1
@@ -166,15 +166,15 @@ def test_health():
 # -----------------------------
 
 TESTS = {
-    #"auth":      test_auth,
+    "auth":      test_auth,
     "write":     test_write,
-    #"read":      test_read,
-    #"bulk_read": test_bulk_read,
+    "read":      test_read,
+    "bulk_read": test_bulk_read,
     "snapshots": test_snapshots,
     "delete":    test_delete,
-    #"admin":     test_admin,
+    "admin":     test_admin,
     "cleanup":   test_cleanup,
-    #"health":    test_health,
+    "health":    test_health,
 }
 
 # -----------------------------
@@ -198,13 +198,15 @@ def start_server():
     atexit.register(server.terminate)
 
     try:
-        requests.get(URL, timeout=1)
+        requests.get(SERVER_URL, timeout=1)
         print("Server is up.\n")
         return server
     except:
         time.sleep(0.5)
 
     print("Server failed to respond.")
+    print("STDIN:", server.stdin)
+    print("STDOUT:", server.stdout)
     server.terminate()
     sys.exit(1)
 
