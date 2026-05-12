@@ -5,6 +5,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import TOKEN, SERVER_URL
 
 # Basic connection test
+print('ok')
 print("Testing connection...")
 r = requests.get(SERVER_URL)
 print(f"GET: {r.status_code} - {r.text.strip()}\n")
