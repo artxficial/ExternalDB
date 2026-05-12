@@ -2,9 +2,12 @@ import os
 import json
 import git
 import subprocess
+import sys
 from flask import Flask, request, jsonify, send_file
 
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import TOKEN, BASE_DIR, GIT_SSH_KEY
+
 import database_functions as DatastoreService
 
 app = Flask(__name__)
