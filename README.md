@@ -1,4 +1,4 @@
-# Uma Derby Legends - External Database API
+# External Database API
 
 A lightweight SQLite-based datastore API designed for Roblox games. It provides ordered datastores with ranking, percentile calculations, snapshots for delta tracking, and bulk operations — all accessible via HTTP webhook.
 
