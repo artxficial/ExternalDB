@@ -206,8 +206,8 @@ def start_server():
         time.sleep(0.5)
 
     print("Server failed to respond.")
-    print("STDIN:", server.stdin)
-    print("STDOUT:", server.stdout)
+    print("STDOUT:", server.stdout.read().decode())
+    print("STDERR:", server.stderr.read().decode())
     server.terminate()
     sys.exit(1)
 
