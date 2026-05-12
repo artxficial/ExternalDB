@@ -3,15 +3,19 @@ import json
 import git
 import subprocess
 import sys
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, render_template
+
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config import TOKEN, BASE_DIR, GIT_SSH_KEY
 
 import database_functions as DatastoreService
 
-app = Flask(__name__)
-
+app = Flask(__name__,
+    template_folder=os.path.join(_ROOT, "Web", "templates"),
+    static_folder=os.path.join(_ROOT, "Web", "static"),
+)
 # -----------------------------
 # Action Registry
 # -----------------------------
@@ -144,8 +148,8 @@ def process_action(datastore_name, action, args, place_id):
 
 @app.route("/", methods=["POST", "GET"])
 def main_endpoint():
-    if request.method == "GET":
-        return "<p>Server is running.</p>"
+    if request.method == "GET" and not request.is_json:
+        return render_template("home.html")
 
     data = request.get_json()
     validated, error = validate_request(data)
@@ -246,6 +250,11 @@ def git_update():
 def health():
     return jsonify({"status": "ok"}), 200
 
-if __name__ == "__main__":
-    app.run(debug=False, threaded=True)
+app.config['TEMPLATES_AUTO_RELOAD'] = True
 
+if __name__ == "__main__":
+    from livereload import Server
+    server = Server(app.wsgi_app)
+    server.watch("Web/templates/")
+    server.watch("Web/static/")
+    server.serve(port=5000)
