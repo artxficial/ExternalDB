@@ -17,9 +17,10 @@ def setup():
         print("  Token cannot be empty.")
         token = input("Secret token: ").strip()
 
-    server_url = input("Server URL (default: http://127.0.0.1:5000): ").strip()
-    if not server_url:
-        server_url = "http://127.0.0.1:5000"
+    server_url = input("Server URL (e.g. https://yourdomain.com): ").strip()
+    while not server_url:
+        print("  Server URL cannot be empty.")
+        server_url = input("Server URL: ").strip()
 
     git_ssh_key = input("Git SSH key path (leave blank to skip): ").strip()
     if not git_ssh_key:
@@ -33,13 +34,13 @@ TOKEN = "{token}"
 BASE_DIR = os.path.join(_ROOT, "Databases")
 SERVER_DIR = os.path.join(_ROOT, "Server")
 GIT_SSH_KEY = "{git_ssh_key}"
+LOCAL_URL = "http://127.0.0.1:5000"
 SERVER_URL = "{server_url}"
 '''
 
     with open(CONFIG_PATH, "w") as f:
         f.write(config_content)
 
-    # Create directories
     root = os.path.dirname(os.path.abspath(__file__))
     os.makedirs(os.path.join(root, "Databases"), exist_ok=True)
     os.makedirs(os.path.join(root, "Server"), exist_ok=True)
@@ -51,9 +52,9 @@ SERVER_URL = "{server_url}"
 
 if __name__ == "__main__":
     setup()
-    
+
     response = input("Run tests? (y/n): ").strip().lower()
     if response == "y":
         import subprocess
-        test_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Tests", "full_test.py")
+        test_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Tests", "local_test.py")
         subprocess.run([sys.executable, test_path])

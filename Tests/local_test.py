@@ -7,7 +7,7 @@ import time
 import atexit
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import TOKEN, SERVER_URL
+from config import TOKEN, LOCAL_URL
 
 # ===== CONFIG =====
 PLACE_ID = 99999
@@ -22,7 +22,7 @@ def test(name, payload, expect_success=True):
     global passed, failed
     try:
         start = time.time()
-        r = requests.post(SERVER_URL, json=payload, timeout=10)
+        r = requests.post(LOCAL_URL, json=payload, timeout=10)
         elapsed = (time.time() - start) * 1000
         data = r.json()
 
@@ -151,7 +151,7 @@ def test_cleanup():
 def test_health():
     global passed, failed
     try:
-        r = requests.get(f"{SERVER_URL}/health", timeout=5)
+        r = requests.get(f"{LOCAL_URL}/health", timeout=5)
         if r.status_code == 200:
             print("  PASS  Health endpoint")
             passed += 1
@@ -183,7 +183,7 @@ TESTS = {
 # -----------------------------
 
 def start_server():
-    print("Starting server...")
+    print("Starting local server...")
     server = subprocess.Popen(
         [sys.executable, "Server/app.py"],
         stdout=subprocess.PIPE,
@@ -198,12 +198,14 @@ def start_server():
 
     atexit.register(server.terminate)
 
-    try:
-        requests.get(SERVER_URL, timeout=1)
-        print("Server is up.\n")
-        return server
-    except:
-        time.sleep(0.5)
+    for i in range(3): 
+        try:
+            requests.get(LOCAL_URL, timeout=1)
+            print("Server is up.\n")
+            return server
+        except:
+            print("Trying to start server...")
+            time.sleep(0.5)
 
     print("Server failed to respond.")
     print("STDOUT:", server.stdout.read().decode())
