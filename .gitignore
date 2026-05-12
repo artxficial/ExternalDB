@@ -1,2 +1,3 @@
 config.py
-databases/
+Databases/
+__pycache__/
