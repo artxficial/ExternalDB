@@ -368,6 +368,10 @@ footer {
     color: #333;
 }
 
+.disclaimer {
+  animation: blur-glitch 5s infinite;
+}
+
 /* ========================
    Utilities
    ======================== */
@@ -402,4 +406,16 @@ footer {
 @keyframes gleam {
     0% { background-position: 100% 0; }
     100% { background-position: -100% 0; }
+}
+
+@keyframes blur-glitch {
+    0% { filter: blur(4px); }
+    30% { filter: blur(2.4px); }
+    50% { filter: blur(3px); }
+    90% { filter: blur(2.1px); }
+    100% { filter: blur(4px); }
+}
+.disclaimer {
+    animation: blur-glitch 5s infinite ease-in-out;
+    display: inline-block;
 }
