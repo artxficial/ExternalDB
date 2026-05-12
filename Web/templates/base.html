@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}artxficial.dev{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+    <div class="noise"></div>
+
+    <div class="container">
+
+        <!-- ===== HEADER ===== -->
+         
+        <div class="site-header">
+
+            <!-- Left: Logo + Name -->
+            <div class="header-left">
+
+                <img src="../static/img/miku.png" alt="mikumikubeam" class="site-logo">
+                <div class="site-info">
+                    <span class="site-name-wrap">
+                        <span class="site-name">artxficial.dev</span>
+                    </span>
+                    <span class="site-tag">Private API Host</span>
+                </div>
+                
+
+            </div>
+
+            <!-- Right: Stats -->
+<!-- 
+            <div class="header-stats">
+                <div class="header-stat">
+                    <span class="header-stat-value">1000{{ requests_today }}</span>
+                    <span class="header-stat-label">requests</span>
+                </div>
+                <div class="header-stat">
+                    <span class="header-stat-value error">1000{{ errors_today }}</span>
+                    <span class="header-stat-label">errors</span>
+                </div>
+                <div class="header-stat">
+                    <span class="header-stat-value">1000{{ avg_response }}ms</span>
+                    <span class="header-stat-label">avg</span>
+                </div>
+            </div>
+-->
+
+
+            <!-- Reserved right space -->
+        <div class="header-right">
+            <div class="token-input">
+                <input type="text" id="token-field" placeholder="Enter token" class="token-field">
+                <button onclick="window.location.href='/dashboard?token=' + document.getElementById('token-field').value" class="action-btn">Submit</button>
+            </div>
+        </div>
+            
+
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ===== NAV ===== -->
+         <!-- 
+
+        <nav class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/projects" class="nav-link">Projects</a>
+            <a href="/contact" class="nav-link">Contact</a>
+        </nav>
+-->
+
+
+        <!-- ===== PAGE CONTENT ===== -->
+        {% block content %}{% endblock %}
+
+        <!-- ===== FOOTER ===== -->
+        <footer>artxficial.dev</footer>
+
+    </div>
+</body>
+</html>

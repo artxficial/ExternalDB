@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Home — artxficial.dev{% endblock %}
+{% block content %}
+
+   
+<header>
+        <h1>voclaoid</h1>
+        <p class="subtitle">miku miku beam</p>
+    </header>
+
+    <div class="status-bar">
+        <div class="status-card">
+            <img src="../static/img/mikudance.gif" alt="miku" style="width: 100px; height: 100px; object-fit: contain; margin: 0 auto; display: block;">
+            <div class="status-label" style="text-align: center; margin-top: 8px;">Miku Status</div>
+            <div class="status-value online" style="text-align: center;">
+                <span class="dot green"></span>Working hardly
+            </div>
+        </div>
+        <div class="status-card">
+            <img src="../static/img/teto.gif" alt="teto" style="width: 100px; height: 100px; object-fit: contain; margin: 0 auto; display: block;">
+            <div class="status-label" style="text-align: center; margin-top: 8px;">Teto status</div>
+            <div class="status-value offline" style="text-align: center;">
+                <span class="dot red"></span>Hardly working
+            </div>
+        </div>
+        <div class="status-card">
+            <div class="status-label">Spikeball vs Parasiteball</div>
+            <div class="status-value" style="font-size: 20px; width: 500px; font-weight: 100;">
+                Can Spooky Dooky deal a jiggle-tiggle-dibbles in Slipple Snipples? To simplifitalize this rounded body object, it embraces and outbraces atomical-scientomical-alignmentomical stuff dealing numerical letters of gargantuan portions. 
+            </div>
+        </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <header>
+        <h1>ExternalDB</h1>
+        <p class="subtitle">SQLite API for Roblox games</p>
+    </header>
+
+    <div class="status-bar">
+        <div class="status-card">
+            <div class="status-label">Server</div>
+            <div class="status-value online">
+                <span class="dot green"></span>Online
+            </div>
+        </div>
+        <div class="status-card">
+            <div class="status-label">Databases</div>
+            <div class="status-value">{{ db_count }}</div>
+        </div>
+        <div class="status-card">
+            <div class="status-label">Uptime</div>
+            <div class="status-value">{{ uptime }}</div>
+        </div>
+    </div>
+
+
+{% endblock %}
