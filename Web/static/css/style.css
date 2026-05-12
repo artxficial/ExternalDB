@@ -369,8 +369,10 @@ footer {
 }
 
 .disclaimer {
-  animation: blur-glitch 5s infinite;
+    animation: blur-glitch 5s infinite ease-in-out;
+    display: inline-block;
 }
+
 
 /* ========================
    Utilities
@@ -414,8 +416,4 @@ footer {
     50% { filter: blur(3px); }
     90% { filter: blur(2.1px); }
     100% { filter: blur(4px); }
-}
-.disclaimer {
-    animation: blur-glitch 5s infinite ease-in-out;
-    display: inline-block;
 }
