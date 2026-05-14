@@ -6,91 +6,107 @@
     <title>{% block title %}artxficial.dev{% endblock %}</title>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="noise"></div>
 
-    <div class="container">
+    <!-- ===== VIDEO BACKGROUND ===== -->
+    <div class="intro-overlay" id="intro">
+        <video playsinline loop muted autoplay id="bg-video">
+            <source src="../static/video/viva2.mp4" type="video/mp4">
+        </video>
+        <video playsinline id="intro-video" style="display: none;">
+            <source src="../static/video/intro.mp4" type="video/mp4">
+        </video>
 
-        <!-- ===== HEADER ===== -->
-         
-        <div class="site-header">
-
-            <!-- Left: Logo + Name -->
-            <div class="header-left">
-
-                <img src="../static/img/miku.png" alt="mikumikubeam" class="site-logo">
-                <div class="site-info">
-                    <span class="site-name-wrap">
-                        <span class="site-name">artxficial.dev</span>
-                    </span>
-                    <span class="site-tag">Private API Host</span>
-                </div>
-                
-
-            </div>
-
-            <!-- Right: Stats -->
-<!-- 
-            <div class="header-stats">
-                <div class="header-stat">
-                    <span class="header-stat-value">1000{{ requests_today }}</span>
-                    <span class="header-stat-label">requests</span>
-                </div>
-                <div class="header-stat">
-                    <span class="header-stat-value error">1000{{ errors_today }}</span>
-                    <span class="header-stat-label">errors</span>
-                </div>
-                <div class="header-stat">
-                    <span class="header-stat-value">1000{{ avg_response }}ms</span>
-                    <span class="header-stat-label">avg</span>
-                </div>
-            </div>
--->
-
-
-            <!-- Reserved right space -->
-        <div class="header-right">
-            <div class="token-input">
-                <input type="text" id="token-field" placeholder="Enter token" class="token-field">
-                <button onclick="window.location.href='/dashboard?token=' + document.getElementById('token-field').value" class="action-btn">Submit</button>
-            </div>
+        <div class="intro-text-wrap" id="intro-text">
+            <span id="intro-line-1" class="intro-text-stroke" style="-webkit-text-stroke: 4px #39c5bb;">CLICK FOR MIKU</span>
+            <span id="intro-line-2" class="intro-text-stroke" style="-webkit-text-stroke: 2.5px #ffffff;">CLICK FOR MIKU</span>
+            <span id="intro-line-3" class="intro-text-inner">CLICK FOR MIKU</span>
         </div>
-            
+    </div>
+
+    <!-- ===== SITE CONTENT ===== -->
+    <div class="site-content" id="site-content">
+        <div class="container">
+
+            <!-- ===== HEADER ===== -->
+            <div class="site-header">
+
+                <!-- Left: Logo + Name -->
+                <div class="header-left">
+                    <img src="../static/img/miku.png" alt="mikumikubeam" class="site-logo">
+                    <div class="site-info">
+                        <span class="site-name-wrap">
+                            <span class="site-name">artxficial.dev</span>
+                        </span>
+                        <span class="site-tag">Sponsored By Vought International</span>
+                    </div>
+                </div>
+
+                <!-- Right: Token -->
+                <div class="header-right">
+                    <div class="token-input">
+                        <input type="text" id="token-field" placeholder="Enter token" class="card token-field">
+                        <button onclick="window.location.href='/?token=' + document.getElementById('token-field').value" class="card action-btn">Submit</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- ===== PAGE CONTENT ===== -->
+            {% block content %}{% endblock %}
+
+            <!-- ===== FOOTER ===== -->
+            <footer>
+                people always ask you, would u rather eat a poop sandwich or a million dollars. id obviously choose a million dollars because thats free money why the hell would i eat a poop sandwich thats disgusting <br>
+                <span style="color: #ffffff; margin-top: 8px; display: inline-block;">© 2026 artxficial - copyright 😭😭😭</span>
+            </footer>
 
         </div>
+    </div>
 
-        <hr class="section-divider">
+    <!-- ===== INTRO SCRIPT ===== -->
+    <script>
+        var skipIntro = new URLSearchParams(window.location.search).has('skip');
+        var hasToken = new URLSearchParams(window.location.search).has('token');
 
-        <!-- ===== NAV ===== -->
-         <!-- 
+        if (hasToken) {
+            document.getElementById('intro-line-1').textContent = 'SUBMIT BUTTON DOES NOTHING';
+            document.getElementById('intro-line-2').textContent = 'SUBMIT BUTTON DOES NOTHING';
+            document.getElementById('intro-line-3').textContent = 'SUBMIT BUTTON DOES NOTHING';
+        }
 
-        <nav class="nav-links">
-            <a href="/" class="nav-link">Home</a>
-            <a href="/projects" class="nav-link">Projects</a>
-            <a href="/contact" class="nav-link">Contact</a>
-        </nav>
--->
+        if (skipIntro) {
+            document.getElementById('intro-text').style.display = 'none';
+            document.getElementById('bg-video').style.display = 'none';
+            var introVideo = document.getElementById('intro-video');
+            introVideo.style.display = 'block';
+            introVideo.muted = true;
+            introVideo.loop = true;
+            introVideo.play();
+            document.getElementById('intro').classList.add('playing');
+            document.getElementById('site-content').classList.add('visible');
+        } else {
+            document.getElementById('intro').addEventListener('click', function() {
+                var bgVideo = document.getElementById('bg-video');
+                var introVideo = document.getElementById('intro-video');
 
+                bgVideo.style.display = 'none';
+                introVideo.style.display = 'block';
+                introVideo.play();
+                document.getElementById('intro-text').style.display = 'none';
+                document.getElementById('intro').classList.add('playing');
 
-        <!-- ===== PAGE CONTENT ===== -->
-        {% block content %}{% endblock %}
+                setTimeout(function() {
+                    document.getElementById('site-content').classList.add('visible');
+                }, 5500);
+            });
+        }
+    </script>
 
-        <!-- ===== FOOTER ===== -->
-        <footer>
-            artxficial.dev &middot; Web hosting on Oracle Cloud
-            <br> &middot;
-            <a href="https://github.com/artxficial" style="color: #009213; text-decoration: none;">GitHub</a> 
-            <br> &middot;
-            <a href="https://www.roblox.com/users/54285031/profile" style="color: #913e45; text-decoration: none;">ROBLOX</a>
-            <br>
-            <span style="color: #333; margin-top: 8px; display: inline-block;">© 2026 artxficial</span> <br><br>
-                         <!--
-
-            <div class="disclaimer"; style="color: #be2c2c; font-size: 20px; text-align: center;">
-                YOU DO NOT BELONG HERE
-            </div>
-             -->
-
+</body>
 </html>

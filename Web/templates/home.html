@@ -2,30 +2,57 @@
 {% block title %}Home — artxficial.dev{% endblock %}
 {% block content %}
 
-   
     <header>
-        <h1>voclaoid</h1>
-        <p class="subtitle">miku miku beam</p>
+        <h1>Live Stats</h1>
+        <p class="subtitle">these are being sent to this server from my brain. im like lain im freakin wired to the internet or somethign like that...  i never watched lain but that probably happened right? thats definitely somethign that would happen in lain </p>
     </header>
 
     <div class="status-bar">
-        <div class="status-card">
-            <img src="../static/img/mikudance.gif" alt="miku" style="width: 100px; height: 100px; object-fit: contain; margin: 0 auto; display: block;">
-            <div class="status-label" style="text-align: center; margin-top: 8px;">Miku Status</div>
-            <div class="status-value online" style="text-align: center;">
-                <span class="dot green"></span>Working hardly
+        <!-- Miku -->
+        <div class="arc-wrap">
+            <div class="arc-track"></div>
+            <div class="arc-spin"></div>
+            <div class="arc-spin2"></div>
+            <div class="circle">
+                <div class="status-label">Miku Status</div>
+                <img src="../static/img/mikudance.gif" alt="miku">
+                <div class="status-value online">
+                    <span class="dot green"></span>working hardly
+                </div>
             </div>
         </div>
 
-        <div class="status-card">
-            <img src="../static/img/teto.gif" alt="teto" style="width: 100px; height: 100px; object-fit: contain; margin: 0 auto; display: block;">
-            <div class="status-label" style="text-align: center; margin-top: 8px;">Teto status</div>
-            <div class="status-value offline" style="text-align: center;">
-                <span class="dot red"></span>Hardly working
+        <!-- Teto -->
+        <div class="arc-wrap">
+            <div class="arc-track"></div>
+            <div class="arc-spin"></div>
+            <div class="arc-spin2"></div>
+            <div class="circle">
+                <div class="status-label">Teto Status</div>
+                <img src="../static/img/teto.gif" alt="teto">
+                <div class="status-value offline">
+                    <span class="dot red"></span>hardly working
+                </div>
             </div>
         </div>
 
+        <div class="arc-wrap">
+            <div class="arc-track"></div><div class="arc-spin"></div><div class="arc-spin2"></div>
+            <div class="circle">
+                <div class="status-label">Bank Balance</div>
+                <div class="center-text" id="balance" style="color: lightgreen; font-weight: 100; font-family: system-ui;">$18,293,329</div> 
+                <div class="status-value" style="font-size: 14px;">REAL</div>
+            </div>
+        </div>
 
+          <div class="arc-wrap">
+            <div class="arc-track"></div><div class="arc-spin"></div><div class="arc-spin2"></div>
+            <div class="circle">
+                <div class="status-label">Incel Chudcel Status</div>
+                <div class="center-text" id="balance" style="color: rgb(228, 106, 90); font-weight: 100; font-family: system-ui;">what? </div> 
+                <div class="status-value" style="font-size: 14px;">this guy is always fuckin larping man..</div>
+            </div>
+        </div>
     </div>
 
     <hr class="section-divider">
@@ -36,28 +63,69 @@
     </header>
 
     <div class="status-bar">
-        <div class="status-card">
+        <div class="card status-card">
             <div class="status-label">Server</div>
             <div class="status-value online">
                 <span class="dot green"></span>Online
             </div>
         </div>
-        <div class="status-card">
+        <div class="card status-card">
             <div class="status-label">Databases</div>
             <div class="status-value">{{ db_count }}</div>
         </div>
-        <div class="status-card">
+        <div class="card status-card">
             <div class="status-label">Uptime</div>
             <div class="status-value">{{ uptime }}</div>
         </div>
     </div>
 
+    <script>
+        // Find all spinning elements
+        document.querySelectorAll('.arc-spin, .arc-spin2').forEach(arc => {
+        // Generate a random number between 0 and 5
+        const randomDelay = (Math.random() * -10).toFixed(2); 
+        // Apply it as a negative animation-delay
+        arc.style.animationDelay = `${randomDelay}s`;
+        });
+    </script>
 
-    <!-- Add before .container in base.html -->
-<div class="intro-overlay" id="intro" onclick="document.getElementById('intro-video').play()">
-    <span style="color: #555; font-family: 'JetBrains Mono'; font-size: 13px; position: absolute; z-index: 1000;">click to enter</span>
-    <video playsinline id="intro-video">
-        <source src="../static/video/intro.mp4" type="video/mp4">
-    </video>
-</div>
+    <script>
+    const balanceElement = document.getElementById('balance');
+    
+    // The "Start" balance logic
+    // We use Date.now() / 1000 to get Unix time in seconds
+    function updateBalance() {
+        const unixTime = Date.now() / 1000;
+        
+        /* 
+           MATH EXPLANATION:
+           1. We take the unix time (e.g., 1715000000)
+           2. Multiply it by a small factor to reach your desired range
+           3. Use toLocaleString() to add the commas automatically
+        */
+        const factor = 0.0005; // Adjust this to change how high the number is
+        const speed = 10;         // Adjust this to change how fast it climbs
+        
+        const currentBalance = (unixTime * speed) * factor;
+        
+        // Format as currency: $18,293,329.00
+        balanceElement.textContent = '$' + currentBalance.toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+        // Loop the function for every frame (smooth animation)
+        requestAnimationFrame(updateBalance);
+    }
+
+    // Start the loop
+    updateBalance();
+
+    // Randomize your arcs from the previous step
+    document.querySelectorAll('.arc-spin, .arc-spin2').forEach(arc => {
+        arc.style.animationDelay = `${(Math.random() * -5)}s`;
+    });
+    </script>
+
 {% endblock %}
+
