@@ -3,7 +3,7 @@
 {% block content %}
 
    
-<header>
+    <header>
         <h1>voclaoid</h1>
         <p class="subtitle">miku miku beam</p>
     </header>
@@ -16,6 +16,7 @@
                 <span class="dot green"></span>Working hardly
             </div>
         </div>
+
         <div class="status-card">
             <img src="../static/img/teto.gif" alt="teto" style="width: 100px; height: 100px; object-fit: contain; margin: 0 auto; display: block;">
             <div class="status-label" style="text-align: center; margin-top: 8px;">Teto status</div>
@@ -23,12 +24,8 @@
                 <span class="dot red"></span>Hardly working
             </div>
         </div>
-        <div class="status-card">
-            <div class="status-label">Spikeball vs Parasiteball</div>
-            <div class="status-value" style="font-size: 20px; width: 500px; font-weight: 100;">
-                Can Spooky Dooky deal a jiggle-tiggle-dibbles in Slipple Snipples? To simplifitalize this rounded body object, it embraces and outbraces atomical-scientomical-alignmentomical stuff dealing numerical letters of gargantuan portions. 
-            </div>
-        </div>
+
+
     </div>
 
     <hr class="section-divider">
@@ -56,4 +53,11 @@
     </div>
 
 
+    <!-- Add before .container in base.html -->
+<div class="intro-overlay" id="intro" onclick="document.getElementById('intro-video').play()">
+    <span style="color: #555; font-family: 'JetBrains Mono'; font-size: 13px; position: absolute; z-index: 1000;">click to enter</span>
+    <video playsinline id="intro-video">
+        <source src="../static/video/intro.mp4" type="video/mp4">
+    </video>
+</div>
 {% endblock %}
