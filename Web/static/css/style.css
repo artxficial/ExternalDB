@@ -181,16 +181,28 @@ header { margin-bottom: 12px; }
 
 /* Overlay */
 .popup-overlay {
-    display: none;
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
+    z-index: 9999;
     align-items: center;
     justify-content: center;
+
+    /* instead of toggling display */
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, visibility 0.2s;
+    display: flex; /* always flex, never toggled */
 }
+
 .popup-overlay.show {
-    display: flex;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
 }
 
 /* Popup card — inherits your card style */
