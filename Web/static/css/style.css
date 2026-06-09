@@ -164,8 +164,56 @@ header { margin-bottom: 12px; }
     border-color: #4fc3f744;
 }
 
+.token-field.valid {
+    border-color: #4caf50;
+    box-shadow: 0 0 6px #4caf5088;
+}
+
+.token-field.invalid {
+    border-color: #f44336;
+    box-shadow: 0 0 6px #f4433688;
+}
+
 .token-field::placeholder {
     color: #979797;
+}
+
+
+/* Overlay */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    align-items: center;
+    justify-content: center;
+}
+.popup-overlay.show {
+    display: flex;
+}
+
+/* Popup card — inherits your card style */
+.popup-card {
+    background: rgba(32, 32, 32, 0.95);
+    border: 1px solid rgba(57, 197, 188, 0.35);
+    border-radius: 8px;
+    padding: 20px;
+    min-width: 260px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.popup-card p {
+    margin: 0;
+    color: #fff;
+    font-size: 0.95rem;
+}
+.popup-card .action-btn {
+    align-self: center;
+    padding: 8px 24px;
+    cursor: pointer;
 }
 
 /* === Navigation === */
@@ -400,9 +448,7 @@ header { margin-bottom: 12px; }
 /* === Footer === */
 
 footer {
-    margin-top: 60px;
     padding-top: 24px;
-    border-top: 1px solid #1a1a20;
     font-family: 'Outfit', monospace;
     font-size: 14px;
     color: #47dcf3;
