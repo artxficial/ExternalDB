@@ -8,6 +8,14 @@ from core.logsplitter import init_logging, AssetLogFilter
 workers = 5
 bind = "127.0.0.1:8000"
 
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+LOG_DIR = os.path.join(BASE_DIR, "logs")
+
+accesslog = os.path.join(LOG_DIR, "access.log")
+errorlog = os.path.join(LOG_DIR, "gunicorn_error.log")
+
 # Logging destinations
 accesslog = "logs/access.log"
 errorlog = "logs/gunicorn_error.log"
