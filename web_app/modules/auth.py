@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
 from functools import wraps
 from config import TOKEN  # Single token imported from config.py
+import logging 
+
+logger = logging.getLogger(__name__)
 
 # --- INITIALIZE BLUEPRINT ---
 auth_bp = Blueprint("auth", __name__, url_prefix="/auth")
@@ -30,19 +33,21 @@ def require_token(f):
 # --- THE PUBLIC VERIFICATION ROUTE ---
 @auth_bp.route("/verify_token", methods=["POST"])
 def verify_token():
-    #print("--- [DEBUG] INCOMING AUTHENTICATION REQUEST RECEIVED ---")
-    
     data = request.get_json() or {}
     user_token = data.get("token")
-    print(f"[DEBUG] User submitted token: {user_token}")
+    
+    # 1. Use logger.info() instead of print()
+    logger.info(f"[DEBUG] User submitted token: {user_token}")
 
     if not user_token:
-        print("[DEBUG] Failed: No token was found in payload.")
+        # 2. Use logger.warning() for bad client requests
+        logger.warning("[DEBUG] Failed: No token was found in payload.")
         return jsonify({"valid": False, "error": "No token provided"}), 400
+        
     # Validate against the single configuration TOKEN
     if user_token == TOKEN:
-        print("[AUTH SUCCESS] Token accepted via config file verification.\n")
+        logger.info("[AUTH SUCCESS] Token accepted via config file verification.")
         return jsonify({"valid": True}), 200
         
-    print("[AUTH FAILED] Submitted token did not match configuration entries.")
+    logger.warning("[AUTH FAILED] Submitted token did not match configuration entries.")
     return jsonify({"valid": False, "error": "Invalid token"}), 401
