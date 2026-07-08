@@ -5,14 +5,15 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, ROOT)
 
 import core.logsplitter
+
+# Determine if we are in production or local development
+ENV = os.environ.get("FLASK_ENV") or ("development" if os.path.exists(".env") else "production")
+
 core.logsplitter.init_logging()
 
 from web_app import create_app
 
 app = create_app()
-
-# Determine if we are in production or local development
-ENV = os.environ.get("FLASK_ENV", "production")
 
 if ENV == "development":
     app.config['TEMPLATES_AUTO_RELOAD'] = True

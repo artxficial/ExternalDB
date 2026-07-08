@@ -129,7 +129,7 @@ def execute():
 
 # Define your log map in a secure dictionary
 LOG_REGISTRY = {
-    "activity": "logs/database_activity.log",
+    "activity": "logs/app.log",
     "access": "logs/access.log"
 }
 
@@ -142,6 +142,12 @@ def log_incoming_payloads():
         if "api/logs/stream" in request.path:
             return
 
+        # Skip if already logged (prevent duplicates from re-execution)
+        if getattr(request, '_payload_logged', False):
+            return
+        
+        request._payload_logged = True
+
         try:
             # .get_json() extracts the payload dictionary safely
             payload = request.get_json(silent=True)
@@ -150,16 +156,9 @@ def log_incoming_payloads():
                 print(f"[PAYLOAD LOGGER] {request.method} {request.path} -> Data: {payload}")
         except Exception as e:
             print(f"[PAYLOAD LOGGER ERROR] Failed to parse payload: {e}")
-
 # =========================================================
 # STREAM RAW LOGS
 # =========================================================
-
-# Define your log map in a secure dictionary
-LOG_REGISTRY = {
-    "activity": "logs/database_activity.log",
-    "access": "logs/access.log"
-}
 
 
 @externaldb_bp.before_request
