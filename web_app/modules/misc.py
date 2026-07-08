@@ -1,15 +1,15 @@
 import requests
 from flask import Blueprint, jsonify, Response
 
-theo_bp = Blueprint("theo", __name__)
+misc_bp = Blueprint("theo", __name__)
 
 URL = "https://offsets.imtheo.lol/Offsets.json"
 
-@theo_bp.route("/theo", methods=["GET"])
+@misc_bp.route("/theo", methods=["GET"])
 def theo():
     try:
         response = requests.get(URL, timeout=10)
-                
+
         return Response(
             response.content, 
             status=response.status_code, 
