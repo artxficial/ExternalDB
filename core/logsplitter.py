@@ -252,12 +252,10 @@ def init_logging_production():
 # MAIN INIT FUNCTION
 # =========================
 def init_logging():
-    """
-    Universal logging initializer that detects environment and configures appropriately.
-    """
+    """Universal logging initializer."""
     env = get_environment()
 
     if env == "development":
         init_logging_development()
     else:
-        init_logging_production()
+        logging.getLogger("gunicorn.error").info("[LOGGING] Production configuration active via Gunicorn engine.")
