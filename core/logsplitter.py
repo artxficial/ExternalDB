@@ -58,23 +58,9 @@ class AssetLogFilter(logging.Filter):
 def init_logging():
     os.makedirs("logs", exist_ok=True)
 
-    # -------------------------
-    # ACCESS LOGGERS
-    # -------------------------
-    access_loggers = [
-        logging.getLogger("werkzeug"),
-        logging.getLogger("gunicorn.access"),
-        logging.getLogger("gunicorn.error"),
-        logging.getLogger("uvicorn.access"),
-        logging.getLogger("tornado.access"),
-        logging.getLogger("tornado.application"),
-    ]
-
-    spam_filter = AssetLogFilter()
-
-    # -------------------------
-    # ACCESS FILE HANDLER
-    # -------------------------
+    # =========================
+    # ACCESS LOG FILE
+    # =========================
     access_file_handler = logging.FileHandler(
         ACCESS_LOG_PATH,
         encoding="utf-8"
@@ -87,48 +73,33 @@ def init_logging():
         )
     )
 
-    access_file_handler.addFilter(spam_filter)
+    access_file_handler.addFilter(AssetLogFilter())
 
 
-    # -------------------------
-    # ACCESS CONSOLE HANDLER
-    # -------------------------
-    access_console_handler = logging.StreamHandler(sys.__stderr__)
+    # =========================
+    # GUNICORN ACCESS LOGGER
+    # =========================
+    access_logger = logging.getLogger("gunicorn.access")
 
-    access_console_handler.setFormatter(
-        logging.Formatter(
-            "[%(asctime)s] %(message)s",
-            datefmt="%m-%d %H:%M:%S"
-        )
-    )
+    access_logger.setLevel(logging.INFO)
+    access_logger.propagate = False
 
-    access_console_handler.addFilter(spam_filter)
+    # remove only existing access handlers
+    for handler in access_logger.handlers[:]:
+        access_logger.removeHandler(handler)
 
-
-    # -------------------------
-    # APPLY ACCESS HANDLERS
-    # -------------------------
-    for logger in access_loggers:
-        logger.setLevel(logging.INFO)
-        logger.handlers.clear()
-        
-        # Allows logs to pass cleanly up to Gunicorn's parent listeners
-        logger.propagate = True
-
-        logger.addHandler(access_file_handler)
-        logger.addHandler(access_console_handler)
+    access_logger.addHandler(access_file_handler)
 
 
-    # -------------------------
-    # APP LOGS
-    # -------------------------
+    # =========================
+    # APP STDOUT/STDERR LOGGING
+    # =========================
     app_log_file = open(
         APP_LOG_PATH,
         "a",
         encoding="utf-8"
     )
 
-    # Fixed: Uses system base streams to prevent recursive lockups
     sys.stdout = LogStreamSplitter(
         sys.__stdout__,
         app_log_file
@@ -138,20 +109,3 @@ def init_logging():
         sys.__stderr__,
         app_log_file
     )
-
-
-# ==================================================
-# GUNICORN HOOK (Injects filter into active workers)
-# ==================================================
-def gunicorn_post_fork(server, worker):
-    """
-    Gunicorn auto-discovers this function signature via the command line.
-    It forces newly spawned workers to run init_logging and apply the spam filter.
-    """
-    init_logging()
-    
-    gunicorn_access_logger = logging.getLogger("gunicorn.access")
-    spam_filter = AssetLogFilter()
-    
-    for handler in gunicorn_access_logger.handlers:
-        handler.addFilter(spam_filter)
