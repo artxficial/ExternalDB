@@ -1,6 +1,7 @@
 import sys
 import os
 import logging
+import re
 from datetime import datetime
 
 
@@ -39,14 +40,16 @@ class AssetLogFilter(logging.Filter):
     def filter(self, record):
         msg = record.getMessage()
 
-        spam_keywords = [
-            "GET /static/",
-            "GET /livereload",
-            "GET /favicon.ico",
-            "POST /externaldb/api/logs/stream",
+        # Regular expressions to catch static files, health streams, and bot parameters
+        spam_patterns = [
+            r"GET /static/",
+            r"GET /livereload",
+            r"GET /favicon.ico",
+            r"POST /externaldb/api/logs/stream",
+            r"GET /\?_=",  # Sweeps out the bot referrer query spam (?_=swftkpp7)
         ]
 
-        return not any(k in msg for k in spam_keywords)
+        return not any(re.search(p, msg) for p in spam_patterns)
 
 
 # =========================
@@ -107,11 +110,10 @@ def init_logging():
     # -------------------------
     for logger in access_loggers:
         logger.setLevel(logging.INFO)
-
-        # remove existing handlers only from these loggers
         logger.handlers.clear()
-
-        logger.propagate = False
+        
+        # Allows logs to pass cleanly up to Gunicorn's parent listeners
+        logger.propagate = True
 
         logger.addHandler(access_file_handler)
         logger.addHandler(access_console_handler)
@@ -126,12 +128,30 @@ def init_logging():
         encoding="utf-8"
     )
 
+    # Fixed: Uses system base streams to prevent recursive lockups
     sys.stdout = LogStreamSplitter(
-        sys.stdout,
+        sys.__stdout__,
         app_log_file
     )
 
     sys.stderr = LogStreamSplitter(
-        sys.stderr,
+        sys.__stderr__,
         app_log_file
     )
+
+
+# ==================================================
+# GUNICORN HOOK (Injects filter into active workers)
+# ==================================================
+def gunicorn_post_fork(server, worker):
+    """
+    Gunicorn auto-discovers this function signature via the command line.
+    It forces newly spawned workers to run init_logging and apply the spam filter.
+    """
+    init_logging()
+    
+    gunicorn_access_logger = logging.getLogger("gunicorn.access")
+    spam_filter = AssetLogFilter()
+    
+    for handler in gunicorn_access_logger.handlers:
+        handler.addFilter(spam_filter)
