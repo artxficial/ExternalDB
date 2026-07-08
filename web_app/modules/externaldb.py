@@ -5,6 +5,10 @@ from flask import Blueprint, request, jsonify, render_template
 
 from config import DB_DIR, TOKEN, ROOT
 
+import logging 
+logger = logging.getLogger(__name__)
+
+
 externaldb_bp = Blueprint("externaldb", __name__)
 
 # =========================================================
@@ -134,28 +138,6 @@ LOG_REGISTRY = {
 }
 
 
-@externaldb_bp.before_request
-def log_incoming_payloads():
-    # Only try to log if it's a POST/PUT request and contains JSON data
-    if request.method in ["POST", "PUT"] and request.is_json:
-        # Don't log the log-streaming endpoint itself (otherwise you'll spam your logs!)
-        if "api/logs/stream" in request.path:
-            return
-
-        # Skip if already logged (prevent duplicates from re-execution)
-        if getattr(request, '_payload_logged', False):
-            return
-        
-        request._payload_logged = True
-
-        try:
-            # .get_json() extracts the payload dictionary safely
-            payload = request.get_json(silent=True)
-            if payload:
-                # This print statement will be caught by your LogStreamSplitter!
-                print(f"[PAYLOAD LOGGER] {request.method} {request.path} -> Data: {payload}")
-        except Exception as e:
-            print(f"[PAYLOAD LOGGER ERROR] Failed to parse payload: {e}")
 # =========================================================
 # STREAM RAW LOGS
 # =========================================================
@@ -174,9 +156,9 @@ def log_incoming_payloads():
             payload = request.get_json(silent=True)
             if payload:
                 # This print statement will be caught by your LogStreamSplitter!
-                print(f"[PAYLOAD LOGGER] {request.method} {request.path} -> Data: {payload}")
+                logger.info(f"[PAYLOAD LOGGER] {request.method} {request.path} -> Data: {payload}")
         except Exception as e:
-            print(f"[PAYLOAD LOGGER ERROR] Failed to parse payload: {e}")
+            logger.error(f"[PAYLOAD LOGGER ERROR] Failed to parse payload: {e}")
 
 
 @externaldb_bp.route("/api/logs/stream", methods=["POST"])
