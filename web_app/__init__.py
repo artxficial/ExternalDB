@@ -1,11 +1,19 @@
 import os
+import sys
 import pkgutil
 import importlib
-import sys
 from flask import Flask
 
 def create_app() -> Flask:
     from config import ROOT
+    
+    # ========================================
+    # CRITICAL: Initialize logging FIRST
+    # This must run before anything else logs
+    # ========================================
+    import core.logsplitter
+    core.logsplitter.init_logging()
+    
     root_dir = ROOT
 
     app = Flask(
