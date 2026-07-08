@@ -1,0 +1,51 @@
+/* === Popup Overlay === */
+
+.popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+
+    /* instead of toggling display */
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, visibility 0.2s;
+    display: flex; /* always flex, never toggled */
+}
+
+.popup-overlay.show {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Popup card — inherits shared .card look, defines its own layout */
+.popup-card {
+    background: rgba(32, 32, 32, 0.95);
+    border: 1px solid rgba(57, 197, 188, 0.35);
+    border-radius: 8px;
+    padding: 20px;
+    min-width: 260px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.popup-card p {
+    margin: 0;
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.popup-card .action-btn {
+    align-self: center;
+    padding: 8px 24px;
+    cursor: pointer;
+}

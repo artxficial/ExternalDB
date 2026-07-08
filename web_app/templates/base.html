@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}artxficial.dev{% endblock %}</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/popup.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/status.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/arc.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/intro.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/brackets.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/readme.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+
+    <meta name="theme-color" content="#39c5bb">
+    <meta property="og:site_name" content="artxficial.dev">
+</head>
+
+{% from "macros.html" import bracket_frame, bracket_frame_body %}
+
+<body>
+
+    <!-- ===== VIDEO BACKGROUND ===== -->
+    <div class="intro-overlay" id="intro">
+        <video playsinline loop muted autoplay id="bg-video">
+            <source src="../static/video/viva2.mp4" type="video/mp4">
+        </video>
+        <video playsinline id="intro-video" style="display: none;">
+            <source src="../static/video/intro.mp4" type="video/mp4">
+        </video>
+
+        <div class="intro-text-wrap" id="intro-text">
+            <span id="intro-line-1" class="intro-text-stroke" style="-webkit-text-stroke: 4px #39c5bb;">CLICK FOR MIKU</span>
+            <span id="intro-line-2" class="intro-text-stroke" style="-webkit-text-stroke: 2.5px #ffffff;">CLICK FOR MIKU</span>
+            <span id="intro-line-3" class="intro-text-inner">CLICK FOR MIKU</span>
+        </div>
+    </div>
+
+    <!-- ===== SITE CONTENT ===== -->
+    <div class="site-content" id="site-content">
+        <div class="container">
+
+            <!-- ===== HEADER ===== -->
+            <div class="site-header">
+
+                <!-- Left: Logo + Name -->
+                <div class="header-left">
+                    <img src="../static/img/miku.png" alt="mikumikubeam" class="site-logo">
+                    <div class="site-info">
+                        <span class="site-name-wrap">
+                            <span class="site-name">artxficial.dev</span>
+                        </span>
+                        <span class="site-tag">Sponsored By Vought International</span>
+                    </div>
+                </div>
+
+                <!-- Right: Token -->
+                <div class="header-right">
+                    <div class="token-input">
+                        <input type="text" id="token-field" placeholder="Enter token" class="card token-field">
+                        <button onclick="handleToken()" class="card action-btn">Submit</button>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <!-- ===== Navbar ===== -->
+
+            <div class="button-bar">
+                <a href="/" class="card action-btn spa-link" data-title="artxficial.dev">Home</a>
+                <a href="/externaldb" class="card action-btn spa-link" data-title="ExternalDB — artxficial.dev">ExternalDB</a>
+             <!--   <a href="/" class="card action-btn spa-link" data-title="Portfolio — artxficial.dev">Portfolio</a> -->
+            </div>
+
+
+            <!-- ===== PAGE CONTENT ===== -->
+             
+            <div id="page-content">
+                {% block content %}{% endblock %}
+            </div>
+
+            <!-- ===== FOOTER ===== -->
+
+            <footer>
+                people always ask you, would u rather eat a poop sandwich or a million dollars. id obviously eat a million dollars. who the hell would eat a poop sandwich? thats disgusting <br>
+            </footer>
+
+
+        </div>
+
+    </div>
+
+    <div class="popup-overlay" id="popup">
+        <div class="popup-card">
+            <p id="popup-message"></p>
+            <button id="popup-btn" class="card action-btn" onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+
+
+<!-- ===== INTRO SCRIPT ===== -->
+<script>
+function initIntro() {
+    if (sessionStorage.getItem('introSeen')) {
+        skipIntroAnimation();
+        return;
+    }
+
+    const skipIntro = new URLSearchParams(window.location.search).has('skip');
+    const hasToken = new URLSearchParams(window.location.search).has('token');
+
+    if (hasToken) {
+        setIntroText('SUBMIT BUTTON DOES NOTHING');
+    }
+
+    if (skipIntro) {
+        skipIntroAnimation();
+    } else {
+        document.getElementById('intro').addEventListener('click', playIntroAnimation);
+    }
+}
+
+function setIntroText(text) {
+    document.getElementById('intro-line-1').textContent = text;
+    document.getElementById('intro-line-2').textContent = text;
+    document.getElementById('intro-line-3').textContent = text;
+}
+
+function skipIntroAnimation() {
+    document.getElementById('intro-text').style.display = 'none';
+    document.getElementById('bg-video').style.display = 'none';
+
+    const introVideo = document.getElementById('intro-video');
+    introVideo.style.display = 'block';
+    introVideo.muted = true;
+    introVideo.loop = true;
+    introVideo.play();
+
+    document.getElementById('intro').classList.add('playing');
+    document.getElementById('site-content').classList.add('visible');
+}
+
+function playIntroAnimation() {
+    const bgVideo = document.getElementById('bg-video');
+    const introVideo = document.getElementById('intro-video');
+
+    bgVideo.style.display = 'none';
+    introVideo.style.display = 'block';
+    introVideo.play();
+    document.getElementById('intro-text').style.display = 'none';
+    document.getElementById('intro').classList.add('playing');
+
+    sessionStorage.setItem('introSeen', 'true');
+
+    setTimeout(function () {
+        document.getElementById('site-content').classList.add('visible');
+    }, 5500);
+}
+
+initIntro();
+</script>
+
+<!-- ===== TOKEN AUTH SCRIPT ===== -->
+
+<!-- ===== TOKEN AUTH SCRIPT ===== -->
+<script>
+    const AUTH_STORAGE_KEY = 'authToken';
+
+    function handleToken() {
+        const input = document.getElementById('token-field');
+        const token = input.value.trim();
+
+        input.classList.remove('valid', 'invalid');
+
+        if (!token) {
+            showPopup('Please type something in first.', 'My bad');
+            return;
+        }
+
+        verifyToken(token)
+            .then(isValid => markTokenResult(input, isValid, token))
+            .catch(handleTokenError.bind(null, input))
+            .finally(() => resetInputStyling(input));
+    }
+
+    function verifyToken(token) {
+        return fetch('/auth/verify_token', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: token })
+        })
+        .then(response => response.json())
+        .then(data => data.valid);
+    }
+
+    function markTokenResult(input, isValid, token) {
+        if (isValid) {
+            input.classList.add('valid');
+            setAuthToken(token);
+            input.value = '';
+            showPopup('great bro nice');
+        } else {
+            input.classList.add('invalid');
+            showPopup('invalid token detected, authorities will be notified and u will be kiled probably. unless u apologize', 'sorry :(');
+        }
+    }
+
+    function handleTokenError(input, error) {
+        console.error('Auth request failed:', error);
+        input.classList.add('invalid');
+        showPopup('Something went totally wrong with the server connection.', 'Try again');
+    }
+
+    function resetInputStyling(input) {
+        setTimeout(() => input.classList.remove('valid', 'invalid'), 1500);
+    }
+
+    function showPopup(message, btnLabel = 'OK') {
+        document.getElementById('popup-message').textContent = message;
+        document.getElementById('popup-btn').textContent = btnLabel;
+        document.getElementById('popup').classList.add('show');
+    }
+
+    function closePopup() {
+        document.getElementById('popup').classList.remove('show');
+    }
+
+    // ===== AUTH STATE =====
+    // Client-side only. This drives UI state (badge, enabling buttons) for
+    // convenience — it is NOT real access control. Every server call still
+    // validates the token independently (see externaldb_bp's TOKEN check).
+
+    function setAuthToken(token) {
+        sessionStorage.setItem(AUTH_STORAGE_KEY, token);
+        updateAuthUI();
+    }
+
+    function clearAuthToken() {
+        sessionStorage.removeItem(AUTH_STORAGE_KEY);
+        updateAuthUI();
+    }
+
+    function getStoredToken() {
+        return sessionStorage.getItem(AUTH_STORAGE_KEY);
+    }
+
+    function isAuthenticated() {
+        return !!getStoredToken();
+    }
+
+    function updateAuthUI() {
+        const loggedIn = isAuthenticated();
+        const tokenInputWrap = document.querySelector('.token-input');
+        if (!tokenInputWrap) return;
+
+        let badge = document.getElementById('auth-badge');
+
+        if (loggedIn) {
+            tokenInputWrap.style.display = 'none';
+            if (!badge) {
+                badge = document.createElement('div');
+                badge.id = 'auth-badge';
+                badge.className = 'card action-btn';
+                tokenInputWrap.parentNode.insertBefore(badge, tokenInputWrap);
+            }
+            badge.innerHTML = '<span class="dot green"></span> Authenticated';
+            badge.style.display = '';
+            badge.onclick = function () {
+                clearAuthToken();
+            };
+        } else {
+            tokenInputWrap.style.display = '';
+            if (badge) badge.style.display = 'none';
+        }
+
+        document.dispatchEvent(new CustomEvent('auth-changed', { detail: { loggedIn: loggedIn } }));
+    }
+
+    updateAuthUI();
+</script>
+
+
+<script src="{{ url_for('static', filename='js/spa.js') }}"></script>
+
+</body>
+
+
+</html>

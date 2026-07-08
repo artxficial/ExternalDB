@@ -1,0 +1,415 @@
+[07-07 23:43:54] 
+--- Auto-Deploying Flask Modules ---
+[07-07 23:43:54] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-07 23:43:54] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-07 23:43:54] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-07 23:43:54] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-07 23:43:54] ------------------------------------
+[07-07 23:43:54] Starting LiveReload development server on port 5000...
+[07-07 23:43:54] [I 260707 23:43:54 server:331] Serving on http://127.0.0.1:5000
+[07-07 23:43:54] [I 260707 23:43:54 handlers:62] Start watching changes
+[07-07 23:43:54] [I 260707 23:43:54 handlers:64] Start detecting changes
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetSumOfValues', 'datastore_name': 'TestStore', 'place_id': 99999}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-07 23:43:54] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-07 23:45:19] 
+--- Auto-Deploying Flask Modules ---
+[07-07 23:45:19] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-07 23:45:19] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-07 23:45:19] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-07 23:45:19] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-07 23:45:19] ------------------------------------
+[07-07 23:45:19] Starting LiveReload development server on port 5000...
+[07-07 23:45:19] [I 260707 23:45:19 server:331] Serving on http://127.0.0.1:5000
+[07-07 23:45:19] [I 260707 23:45:19 handlers:62] Start watching changes
+[07-07 23:45:19] [I 260707 23:45:19 handlers:64] Start detecting changes
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetSumOfValues', 'datastore_name': 'TestStore', 'place_id': 99999}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-07 23:45:19] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-07 23:50:50] 
+--- Auto-Deploying Flask Modules ---
+[07-07 23:50:50] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-07 23:50:50] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-07 23:50:50] {'GetAsync': {'args': ['key'], 'op_type': 'single', 'query': 'SELECT value FROM {table} WHERE key = ?'}, 'GetRankAsync': {'args': ['key'], 'op_type': 'single', 'query': 'SELECT ROW_NUMBER() OVER (ORDER BY value DESC) as rank FROM {table} WHERE key = ?'}, 'RemoveAsync': {'args': ['key'], 'op_type': 'single', 'query': 'DELETE FROM {table} WHERE key = ?'}, 'SetAsync': {'args': ['key', 'value'], 'op_type': 'single', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'}, 'IncrementAsync': {'args': ['key', 'value'], 'op_type': 'single', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = value + excluded.value'}, 'BulkSetAsync': {'args': ['dictionary'], 'op_type': 'bulk', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'}, 'BulkIncrementAsync': {'args': ['dictionary'], 'op_type': 'bulk', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = value + excluded.value'}, 'BulkRemoveAsync': {'args': ['list'], 'op_type': 'bulk', 'query': 'DELETE FROM {table} WHERE key = ?'}}
+[07-07 23:50:50] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-07 23:50:50] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-07 23:50:50] ------------------------------------
+[07-07 23:50:50] Starting LiveReload development server on port 5000...
+[07-07 23:50:50] [I 260707 23:50:50 server:331] Serving on http://127.0.0.1:5000
+[07-07 23:50:50] [I 260707 23:50:50 handlers:62] Start watching changes
+[07-07 23:50:50] [I 260707 23:50:50 handlers:64] Start detecting changes
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetSumOfValues', 'datastore_name': 'TestStore', 'place_id': 99999}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-07 23:50:50] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:00:33] 
+--- Auto-Deploying Flask Modules ---
+[07-08 00:00:33] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-08 00:00:34] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-08 00:00:34] {'GetAsync': {'args': ['key'], 'op_type': 'single', 'query': 'SELECT value FROM {table} WHERE key = ?'}, 'GetRankAsync': {'args': ['key'], 'op_type': 'single', 'query': 'SELECT ROW_NUMBER() OVER (ORDER BY value DESC) as rank FROM {table} WHERE key = ?'}, 'RemoveAsync': {'args': ['key'], 'op_type': 'single', 'query': 'DELETE FROM {table} WHERE key = ?'}, 'SetAsync': {'args': ['key', 'value'], 'op_type': 'single', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'}, 'IncrementAsync': {'args': ['key', 'value'], 'op_type': 'single', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = value + excluded.value'}, 'BulkSetAsync': {'args': ['dictionary'], 'op_type': 'bulk', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'}, 'BulkIncrementAsync': {'args': ['dictionary'], 'op_type': 'bulk', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = value + excluded.value'}, 'BulkRemoveAsync': {'args': ['list'], 'op_type': 'bulk', 'query': 'DELETE FROM {table} WHERE key = ?'}}
+[07-08 00:00:34] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-08 00:00:34] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-08 00:00:34] ------------------------------------
+[07-08 00:00:35] Starting LiveReload development server on port 5000...
+[07-08 00:00:35] [I 260708 00:00:35 server:331] Serving on http://127.0.0.1:5000
+[07-08 00:00:35] [I 260708 00:00:35 handlers:62] Start watching changes
+[07-08 00:00:35] [I 260708 00:00:35 handlers:64] Start detecting changes
+[07-08 00:00:35] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:35] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:35] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:35] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:00:35] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:00:35] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:00:35] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:00:35] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:00:35] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:00:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:00:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:00:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:00:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:00:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:00:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:00:51] 
+--- Auto-Deploying Flask Modules ---
+[07-08 00:00:51] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-08 00:00:51] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-08 00:00:51] {'GetAsync': {'args': ['key'], 'op_type': 'single', 'query': 'SELECT value FROM {table} WHERE key = ?'}, 'GetRankAsync': {'args': ['key'], 'op_type': 'single', 'query': 'SELECT ROW_NUMBER() OVER (ORDER BY value DESC) as rank FROM {table} WHERE key = ?'}, 'RemoveAsync': {'args': ['key'], 'op_type': 'single', 'query': 'DELETE FROM {table} WHERE key = ?'}, 'SetAsync': {'args': ['key', 'value'], 'op_type': 'single', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'}, 'IncrementAsync': {'args': ['key', 'value'], 'op_type': 'single', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = value + excluded.value'}, 'BulkSetAsync': {'args': ['dictionary'], 'op_type': 'bulk', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'}, 'BulkIncrementAsync': {'args': ['dictionary'], 'op_type': 'bulk', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = value + excluded.value'}, 'BulkRemoveAsync': {'args': ['list'], 'op_type': 'bulk', 'query': 'DELETE FROM {table} WHERE key = ?'}}
+[07-08 00:00:51] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-08 00:00:51] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-08 00:00:51] ------------------------------------
+[07-08 00:00:51] Starting LiveReload development server on port 5000...
+[07-08 00:00:51] [I 260708 00:00:51 server:331] Serving on http://127.0.0.1:5000
+[07-08 00:00:51] [I 260708 00:00:51 handlers:62] Start watching changes
+[07-08 00:00:51] [I 260708 00:00:51 handlers:64] Start detecting changes
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:00:52] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:14:04] 
+--- Auto-Deploying Flask Modules ---
+[07-08 00:14:04] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-08 00:14:04] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-08 00:14:04] {'GetAsync': {'args': ['key'], 'op_type': 'single', 'query': 'SELECT value FROM {table} WHERE key = ?'}, 'GetRankAsync': {'args': ['key'], 'op_type': 'single', 'query': 'SELECT ROW_NUMBER() OVER (ORDER BY value DESC) as rank FROM {table} WHERE key = ?'}, 'RemoveAsync': {'args': ['key'], 'op_type': 'single', 'query': 'DELETE FROM {table} WHERE key = ?'}, 'SetAsync': {'args': ['key', 'value'], 'op_type': 'single', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'}, 'IncrementAsync': {'args': ['key', 'value'], 'op_type': 'single', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = value + excluded.value'}, 'BulkSetAsync': {'args': ['dictionary'], 'op_type': 'bulk', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = excluded.value'}, 'BulkIncrementAsync': {'args': ['dictionary'], 'op_type': 'bulk', 'query': 'INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = value + excluded.value'}, 'BulkRemoveAsync': {'args': ['list'], 'op_type': 'bulk', 'query': 'DELETE FROM {table} WHERE key = ?'}, 'GetValueAtPercentile': {'args': ['percentile'], 'op_type': 'single', 'multi': False, 'query': '\n            SELECT value, rank, percentile FROM (\n                SELECT value,\n                    RANK() OVER (ORDER BY value DESC) AS rank,\n                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile\n                FROM {table}\n            ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1\n        '}, 'GetKeysNearRankAsync': {'args': ['rank', 'spread'], 'op_type': 'single', 'multi': True, 'defaults': {}, 'build_params': <function <lambda> at 0x00000299120C6F20>, 'query': '\n            SELECT key, value, rank, percentile, total_keys FROM (\n                SELECT key, value,\n                    ROW_NUMBER() OVER (ORDER BY value DESC) AS row_index,\n                    RANK() OVER (ORDER BY value DESC) AS rank,\n                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile,\n                    COUNT(*) OVER () AS total_keys\n                FROM {table}\n            ) WHERE row_index >= ? AND row_index < ?\n            ORDER BY value DESC\n        '}, 'ListOrderedKeysAsync': {'args': ['start_index', 'limit'], 'op_type': 'single', 'multi': True, 'defaults': {'start_index': 1}, 'build_params': <function <lambda> at 0x00000299120C6E80>, 'query': '\n            SELECT key, value, rank, percentile, total_keys FROM (\n                SELECT key, value,\n                    ROW_NUMBER() OVER (ORDER BY value DESC) AS row_index,\n                    RANK() OVER (ORDER BY value DESC) AS rank,\n                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile,\n                    COUNT(*) OVER () AS total_keys\n                FROM {table}\n            ) WHERE row_index >= ? AND row_index < ? + ?\n            ORDER BY value DESC\n        '}}
+[07-08 00:14:04] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-08 00:14:04] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-08 00:14:04] ------------------------------------
+[07-08 00:14:04] Starting LiveReload development server on port 5000...
+[07-08 00:14:04] [I 260708 00:14:04 server:331] Serving on http://127.0.0.1:5000
+[07-08 00:14:04] [I 260708 00:14:04 handlers:62] Start watching changes
+[07-08 00:14:04] [I 260708 00:14:04 handlers:64] Start detecting changes
+[07-08 00:14:04] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:14:04] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:14:04] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:14:04] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:14:05] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:17:29] 
+--- Auto-Deploying Flask Modules ---
+[07-08 00:17:30] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-08 00:17:30] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-08 00:17:30] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-08 00:17:30] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-08 00:17:30] ------------------------------------
+[07-08 00:17:30] Starting LiveReload development server on port 5000...
+[07-08 00:17:30] [I 260708 00:17:30 server:331] Serving on http://127.0.0.1:5000
+[07-08 00:17:30] [I 260708 00:17:30 handlers:62] Start watching changes
+[07-08 00:17:30] [I 260708 00:17:30 handlers:64] Start detecting changes
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:17:30] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:17:35] 
+--- Auto-Deploying Flask Modules ---
+[07-08 00:17:35] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-08 00:17:35] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-08 00:17:35] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-08 00:17:35] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-08 00:17:35] ------------------------------------
+[07-08 00:17:36] Starting LiveReload development server on port 5000...
+[07-08 00:17:36] [I 260708 00:17:36 server:331] Serving on http://127.0.0.1:5000
+[07-08 00:17:36] [I 260708 00:17:36 handlers:62] Start watching changes
+[07-08 00:17:36] [I 260708 00:17:36 handlers:64] Start detecting changes
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457, 123458]}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457]}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [0.25, 0.5, 0.75]}
+[07-08 00:17:36] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [1, 2, 3], 'spread': 2}
+[07-08 00:28:07] 
+--- Auto-Deploying Flask Modules ---
+[07-08 00:28:07] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-08 00:28:08] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-08 00:28:08] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-08 00:28:08] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-08 00:28:08] ------------------------------------
+[07-08 00:28:08] Starting LiveReload development server on port 5000...
+[07-08 00:28:08] [I 260708 00:28:08 server:331] Serving on http://127.0.0.1:5000
+[07-08 00:28:08] [I 260708 00:28:08 handlers:62] Start watching changes
+[07-08 00:28:08] [I 260708 00:28:08 handlers:64] Start detecting changes
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'Test', 'place_id': 99999, 'key': 1}
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'Test', 'place_id': 99999, 'key': 1}
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'Test', 'place_id': 99999, 'key': 1}
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'Test', 'place_id': 99999, 'key': 1}
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'Test', 'place_id': 99999, 'key': 1, 'value': 42}
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'Test', 'place_id': 99999, 'key': 1, 'value': 42}
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'Test', 'place_id': 99999, 'key': 1}
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'Test', 'place_id': 99999, 'key': 1}
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'RemoveDatastore', 'place_id': 99999, 'key': 'Test'}
+[07-08 00:28:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'RemoveDatastore', 'place_id': 99999, 'key': 'Test'}
+[07-08 00:28:44] 
+--- Auto-Deploying Flask Modules ---
+[07-08 00:28:44] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-08 00:28:44] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-08 00:28:44] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-08 00:28:44] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-08 00:28:44] ------------------------------------
+[07-08 00:28:44] Starting LiveReload development server on port 5000...
+[07-08 00:28:44] [I 260708 00:28:44 server:331] Serving on http://127.0.0.1:5000
+[07-08 00:28:44] [I 260708 00:28:44 handlers:62] Start watching changes
+[07-08 00:28:44] [I 260708 00:28:44 handlers:64] Start detecting changes
+[07-08 00:28:44] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:44] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457, 123458]}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457, 123458]}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457]}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457]}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [0.25, 0.5, 0.75]}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [0.25, 0.5, 0.75]}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [1, 2, 3], 'spread': 2}
+[07-08 00:28:45] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [1, 2, 3], 'spread': 2}
+[07-08 00:29:11] 
+--- Auto-Deploying Flask Modules ---
+[07-08 00:29:11] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-08 00:29:12] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-08 00:29:12] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-08 00:29:12] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-08 00:29:12] ------------------------------------
+[07-08 00:29:12] Starting LiveReload development server on port 5000...
+[07-08 00:29:12] [I 260708 00:29:12 server:331] Serving on http://127.0.0.1:5000
+[07-08 00:29:12] [I 260708 00:29:12 handlers:62] Start watching changes
+[07-08 00:29:12] [I 260708 00:29:12 handlers:64] Start detecting changes
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457, 123458]}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457, 123458]}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457]}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457]}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [0.25, 0.5, 0.75]}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [0.25, 0.5, 0.75]}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [1, 2, 3], 'spread': 2}
+[07-08 00:29:12] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [1, 2, 3], 'spread': 2}
+[07-08 00:29:13] 
+--- Auto-Deploying Flask Modules ---
+[07-08 00:29:13] [SUCCESS] Auto-deployed module: 'auth' via prefix '/auth'
+[07-08 00:29:13] [SUCCESS] Auto-deployed module: 'deploy' via prefix '/deploy'
+[07-08 00:29:13] [SUCCESS] Auto-deployed module: 'externaldb' via prefix '/externaldb'
+[07-08 00:29:13] [SUCCESS] Auto-deployed module: 'frontend' via prefix '/'
+[07-08 00:29:13] ------------------------------------
+[07-08 00:29:13] Starting LiveReload development server on port 5000...
+[07-08 00:29:13] [I 260708 00:29:13 server:331] Serving on http://127.0.0.1:5000
+[07-08 00:29:13] [I 260708 00:29:13 handlers:62] Start watching changes
+[07-08 00:29:13] [I 260708 00:29:13 handlers:64] Start detecting changes
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'wrong', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 100}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123457, 'value': 200}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'SetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123458, 'value': 50}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'IncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456, 'value': 10}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkSetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123466': 500, '123467': 600, '123468': 700}}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkIncrementAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'dictionary': {'123456': 5, '123457': 10}}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 123456}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'percentile': 0.5}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'rank': 1, 'spread': 3}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 10, 'start_index': None}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'ListOrderedKeysAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'limit': 5, 'start_index': 1}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:29:13] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'GetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'key': 999999999}
+[07-08 00:29:14] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457, 123458]}
+[07-08 00:29:14] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457, 123458]}
+[07-08 00:29:14] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457]}
+[07-08 00:29:14] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [123456, 123457]}
+[07-08 00:29:14] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [0.25, 0.5, 0.75]}
+[07-08 00:29:14] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetValueAtPercentile', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [0.25, 0.5, 0.75]}
+[07-08 00:29:14] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [1, 2, 3], 'spread': 2}
+[07-08 00:29:14] [PAYLOAD LOGGER] POST /externaldb/api/execute -> Data: {'token': 'toe', 'action': 'BulkGetKeysNearRankAsync', 'datastore_name': 'TestStore', 'place_id': 99999, 'list': [1, 2, 3], 'spread': 2}

@@ -1,0 +1,315 @@
+{% extends "base.html" %}
+{% from "macros.html" import bracket_frame, bracket_frame_body %}
+
+{% block content %}
+
+<div class="dashboard-section">
+    {% call bracket_frame() %}
+    <header>
+        <h1>ExternalDB</h1>
+        <p class="subtitle">A lightweight SQLite-based datastore API designed for Roblox games.</p>
+    </header>
+    <div class="status-bar">
+        <div class="card status-card">
+            <div class="status-label">Database Status</div>
+            <div class="status-value offline">
+                <span class="dot red"></span>Offline
+            </div>
+        </div>
+        <div class="card status-card">
+            <div class="status-label">Managed Databases</div>
+            <div class="status-value" id="db-count-display">{{ db_count }}</div>
+        </div>
+        <div class="card status-card">
+            <div class="status-label">Uptime</div>
+            <div class="status-value">{{ uptime }}</div>
+        </div>
+    </div>
+    {% endcall %}
+</div>
+
+<!--
+
+<div class="dashboard-section db-split">
+
+    <div class="db-pane left-pane">
+
+        {% call bracket_frame() %}
+        <div class="panel-header">
+            <h2>Active Databases</h2>
+        </div>
+
+        <div class="db-list-container">
+            <table class="dashboard-table managed-registry">
+                <thead>
+                    <tr>
+                        <th>Database File</th>
+                        <th>Connections</th>
+                        <th>Size</th>
+                    </tr>
+                </thead>
+
+                <tbody id="db-list-body">
+                    <tr class="db-row database-item" data-db-id="prod_player_data">
+                        <td>
+                            <div class="db-name-wrapper">
+                                <span class="db-nickname">🎮 Player Data</span>
+                                <code class="db-filename">prod_player_data.db</code>
+                            </div>
+                        </td>
+                        <td>43</td>
+                        <td>12.4 MB</td>
+                    </tr>
+
+                    <tr class="db-row database-item" data-db-id="global_leaderboards">
+                        <td>
+                            <div class="db-name-wrapper">
+                                <span class="db-nickname">🏆 Leaderboards</span>
+                                <code class="db-filename">global_leaderboards.db</code>
+                            </div>
+                        </td>
+                        <td>12</td>
+                        <td>1.1 MB</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        {% endcall %}
+
+    </div>
+
+    <div class="db-pane right-pane">
+
+        {% call bracket_frame() %}
+        <div class="panel-header">
+            <h2>Database Configuration</h2>
+        </div>
+
+        <div class="config-container">
+
+            <div class="meta-item">
+                <span class="meta-label">Selected Database:</span>
+                <span class="meta-value" id="current-selected-db">
+                    prod_player_data.db
+                </span>
+            </div>
+
+            <hr class="panel-divider">
+
+            <form id="db-config-form" onsubmit="event.preventDefault();">
+
+                <div class="form-group">
+                    <label class="input-label">Database Nickname</label>
+                    <input type="text"
+                           id="db-nickname-input"
+                           class="console-input"
+                           value="Player Data"
+                           placeholder="Assign nickname...">
+                </div>
+
+                <button class="btn-console btn-primary">
+                    Save Identity
+                </button>
+
+            </form>
+
+        </div>
+        {% endcall %}
+
+    </div>
+
+</div>
+
+-->
+
+<div class="dashboard-col pane-right">
+    {% call bracket_frame() %}
+    <div class="panel-header log-header">
+        <h2>Log Streams</h2>
+
+        <button id="btn-listen" class="btn-console requires-auth" >
+            <span class="pulse-indicator"></span>
+            Listen Live
+        </button>
+    </div>
+
+    <div class="log-stream-grid">
+
+        <!-- ACCESS LOGS -->
+        <div class="console-box">
+            <div class="console-subheader">
+                <span class="console-title">Access Logs</span>
+            </div>
+            <div class="console-log-screen" id="log-access">
+                <div class="log-entry access">[ACCESS] idle...</div>
+            </div>
+        </div>
+
+        <!-- ACTIVITY LOGS -->
+        <div class="console-box">
+            <div class="console-subheader">
+                <span class="console-title">Activity Logs</span>
+            </div>
+            <div class="console-log-screen" id="log-activity">
+                <div class="log-entry activity">[ACTIVITY] idle...</div>
+            </div>
+        </div>
+
+
+    </div>
+    {% endcall %}
+</div>
+<!-- ===== LISTENER ===== -->
+<script>
+class LogStreamViewer {
+    constructor(options) {
+        this.endpoint = options.endpoint;
+        this.container = document.getElementById(options.containerId);
+        this.button = document.getElementById(options.buttonId);
+        this.type = options.type || 'activity';
+        this.pollInterval = options.pollInterval || 1000;
+        
+        this.intervalId = null;
+        this.isListening = false;
+
+        this.init();
+    }
+
+    init() {
+        if (this.button) {
+            this.button.addEventListener('click', () => this.toggleListening());
+        }
+    }
+
+    toggleListening() {
+        if (!this.isListening) {
+            this.start();
+        } else {
+            this.stop();
+        }
+    }
+
+    start() {
+        this.isListening = true;
+        this.updateButtonState(true);
+        
+        this.container.innerHTML = `
+            <div class="log-entry status-system">[SYSTEM] Connecting to stream...</div>
+        `;
+        
+        // Immediate fetch, then poll
+        this.fetchLogs();
+        this.intervalId = setInterval(() => this.fetchLogs(), this.pollInterval);
+    }
+
+    stop() {
+        this.isListening = false;
+        clearInterval(this.intervalId);
+        this.updateButtonState(false);
+        
+        this.container.innerHTML += `       
+            <div class="log-entry status-system">[SYSTEM] Disconnected from stream.</div>
+        `;
+        this.scrollToBottom();
+    }
+
+    updateButtonState(isActive) {
+        if (!this.button) return;
+        if (isActive) {
+            this.button.classList.add('listening-active');
+            this.button.innerHTML = '<span class="pulse-indicator active"></span> Stop Listening';
+        } else {
+            this.button.classList.remove('listening-active');
+            this.button.innerHTML = '<span class="pulse-indicator"></span> Listen Live';
+        }
+    }
+
+    fetchLogs() {
+        fetch(this.endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ type: this.type }) // <-- Send it to the backend here!
+        })
+        .then(response => response.ok ? response.text() : Promise.reject(response.status))
+        .then(data => {
+            const lines = data.trim().split('\n');
+            this.renderLogs(lines);
+        })
+        .catch(err => console.error(`[STREAM ERROR] ${this.endpoint}:`, err));
+    }
+
+renderLogs(lines) {
+    this.container.innerHTML = '';
+
+    lines.forEach(line => {
+        if (!line.trim()) return;
+
+        const div = document.createElement('div');
+        
+        // Base log configuration classes
+        let statusClass = 'normal';
+        const upperLine = line.toUpperCase();
+
+        // Dynamically assign theme colors based on log content keywords
+        if (upperLine.includes('SYSTEM')) {
+            statusClass = 'system';
+        } else if (upperLine.includes('FAIL') || upperLine.includes('401') || upperLine.includes('400') || upperLine.includes('ERROR')) {
+            statusClass = 'error';
+        } else if (upperLine.includes('SUCCESS') || upperLine.includes('200')) {
+            statusClass = 'success';
+        } else if (upperLine.includes('DEBUG') || upperLine.includes('WARN')) {
+            statusClass = 'warning';
+        }
+
+        // Apply clean class targeting strings
+        div.className = `log-entry channel-${this.type} status-${statusClass}`;
+        div.innerText = line;
+        
+        this.container.appendChild(div);
+    });
+
+}
+
+    scrollToBottom() {
+        this.container.scrollTop = this.container.scrollHeight;
+    }
+}
+
+const databaseLogger = new LogStreamViewer({
+    endpoint: '/externaldb/api/logs/stream',
+    containerId: 'log-activity',
+    buttonId: 'btn-listen', // (Update this ID in your HTML to keep buttons separate)
+    type: 'activity',
+    pollInterval: 1000
+});
+
+// Instance 2: HTTP Access Log Console
+const accessLogger = new LogStreamViewer({
+    endpoint: '/externaldb/api/logs/stream',
+    containerId: 'log-access',
+    buttonId: 'btn-listen',   // (Update this ID in your HTML to keep buttons separate)
+    type: 'access',
+    pollInterval: 1000
+});
+
+window.__spaTeardown = window.__spaTeardown || [];
+window.__spaTeardown.push(function () {
+    if (databaseLogger.isListening) databaseLogger.stop();
+    if (accessLogger.isListening) accessLogger.stop();
+});
+
+document.querySelectorAll('.requires-auth').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+        if (typeof isAuthenticated === 'function' && !isAuthenticated()) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            showPopup('You need to enter a valid token first.', 'Got it');
+        }
+    }, true);
+});
+
+
+</script>
+
+{% endblock %}

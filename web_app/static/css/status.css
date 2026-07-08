@@ -1,0 +1,161 @@
+/* === Status Bar Container === */
+.status-bar {
+    margin-top: 24px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+
+.status-card.link-card {
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.status-card.link-card:hover {
+    transform: translateY(-2px);
+}
+
+.status-card.link-card:hover::before,
+.status-card.link-card:hover::after {
+    border-color: rgba(57, 197, 187, 0.6); /* your teal accent, matches theme-color meta tag */
+}
+
+.status-card.link-card .status-label,
+.status-card.link-card .status-text,
+.status-card.link-card:visited .status-label,
+.status-card.link-card:visited .status-text {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* === Techno Bracket Card === */
+.status-card {
+    flex: 1;
+    min-width: 260px; /* Prevents cards from getting squished */
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 22px;
+    background: rgba(32, 32, 32, 0.5);
+    position: relative;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+/* Left Tech Bracket */
+.status-card::before {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    bottom: 0;
+    width: 8px;
+    border-top: 2px solid #3d3d4a;
+    border-left: 2px solid #3d3d4a;
+    border-bottom: 2px solid #3d3d4a;
+    pointer-events: none;
+    transition: border-color 0.3s ease;
+}
+
+/* Right Tech Bracket */
+.status-card::after {
+    content: '';
+    position: absolute;
+    top: 0; 
+    right: 0; 
+    bottom: 0;
+    width: 8px;
+    border-top: 2px solid #3d3d4a;
+    border-right: 2px solid #3d3d4a;
+    border-bottom: 2px solid #3d3d4a;
+    pointer-events: none;
+    transition: border-color 0.3s ease;
+}
+
+/* Dynamic Status Accent Color linking to the inner state */
+.status-card:has(.online)::before, 
+.status-card:has(.online)::after { 
+    border-color: rgba(102, 187, 106, 0.6); 
+}
+
+.status-card:has(.offline)::before, 
+.status-card:has(.offline)::after { 
+    border-color: rgba(239, 83, 80, 0.6); 
+}
+
+/* === Card Contents === */
+.status-card-avatar {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+}
+
+.status-card-avatar img {
+    width: 150%;
+    height: 150%;
+    object-fit: cover;
+    border-radius: 2px; /* Sharper tech edges instead of bubbly rounded corners */
+}
+
+.status-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.status-label {
+    font-size: 11px;
+    color: #888896;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 500;
+    margin: 0;
+}
+
+/* Text brackets wrapping the uppercase label automatically */
+.status-label::before { content: "[ "; color: #44444f; }
+.status-label::after { content: " ]"; color: #44444f; }
+
+.status-value {
+    font-size: 16px;
+    font-weight: 500;
+    color: #f0f0f5;
+    display: flex;
+    align-items: center;
+    font-family: monospace; /* Gives a data-terminal feel */
+}
+
+.status-value.online { color: #66bb6a; }
+.status-value.offline { color: #ef5350; }
+
+/* === Status Pulse Dot === */
+.dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+}
+
+.dot.green {
+    background: #66bb6a;
+    box-shadow: 0 0 8px #66bb6a88;
+}
+
+.dot.red {
+    background: #ef5350;
+    box-shadow: 0 0 8px #ef535088;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.9); }
+}

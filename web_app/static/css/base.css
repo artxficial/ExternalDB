@@ -1,0 +1,41 @@
+/* === Reset & Base === */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background: #0a0a0c;
+    color: #c8c8d0;
+    font-family: 'Outfit', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* === Root Variables === */
+:root {
+    --miku-size: 250px;
+    /* CHANGE THIS VALUE TO RESIZE THE ARC WIDGET AUTOMATICALLY */
+    --base-size: 250px;
+    --miku-teal: rgba(57, 197, 188, 0.8);
+}
+
+/* === Typography === */
+
+h1 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #f0f0f5;
+}
+
+h2 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #f0f0f5;
+    margin-bottom: 16px;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: #b1b1b1;
+    font-weight: 400;
+}

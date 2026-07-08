@@ -1,0 +1,110 @@
+/* Container styling */
+/* Container styling */
+.readme-container {
+    width: 100%;       /* Force it to fill the entire bracket frame container */
+    max-width: 100%;   /* Override or expand the previous 800px limit if you want it full-bleed */
+    box-sizing: border-box; /* Ensures padding doesn't push the box past the edges */
+    margin: 0 auto;
+    padding: 20px;
+    font-family: system-ui, -apple-system, sans-serif;
+    color: #c9d1d9; 
+    line-height: 1.6;
+}
+
+/* Headings */
+.readme-container h1, 
+.readme-container h2, 
+.readme-container h3 {
+    color: #f0f6fc;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.readme-container h1 {
+    font-size: 2rem;
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 8px;
+}
+
+.readme-container h2 {
+    font-size: 1.5rem;
+    border-bottom: 1px solid #21262d;
+    padding-bottom: 6px;
+}
+
+/* Paragraphs & Lists */
+.readme-container p {
+    margin-bottom: 16px;
+}
+
+.readme-container ul, 
+.readme-container ol {
+    padding-left: 2em;
+    margin-bottom: 16px;
+}
+
+.readme-container li {
+    margin-top: 0.25em;
+}
+
+/* Inline Code (e.g. `npm install`) */
+.readme-container code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(110, 118, 129, 0.4);
+    border-radius: 6px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Code Blocks (Preformatted text blocks) */
+.readme-container pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #161b22;
+    border-radius: 6px;
+    margin-bottom: 16px;
+}
+
+.readme-container pre code {
+    padding: 0;
+    background-color: transparent;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+}
+
+/* Links */
+.readme-container a {
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+.readme-container a:hover {
+    text-decoration: underline;
+}
+
+.readme-container table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 16px;
+    color: #c9d1d9;
+}
+
+.readme-container th, 
+.readme-container td {
+    padding: 8px 13px;
+    border: 1px solid #30363d;
+}
+
+.readme-container th {
+    background-color: #161b22;
+    font-weight: 600;
+}
+
+.readme-container tr:nth-child(even) {
+    background-color: rgba(22, 27, 34, 0.5);
+}

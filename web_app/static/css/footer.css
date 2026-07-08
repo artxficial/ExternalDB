@@ -1,0 +1,21 @@
+/* === Footer === */
+
+footer {
+    padding-top: 24px;
+    font-family: 'Outfit', monospace;
+    font-size: 14px;
+    color: #47dcf3;
+}
+
+.disclaimer {
+    animation: blur-glitch 5s infinite ease-in-out;
+    display: inline-block;
+}
+
+@keyframes blur-glitch {
+    0% { filter: blur(4px); }
+    30% { filter: blur(2.4px); }
+    50% { filter: blur(3px); }
+    90% { filter: blur(2.1px); }
+    100% { filter: blur(4px); }
+}

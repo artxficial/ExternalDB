@@ -1,0 +1,16 @@
+{% macro bracket_frame() %}
+<div class="bracket-frame">
+    <span class="bracket-corner bracket-tl"></span>
+    <span class="bracket-corner bracket-tr"></span>
+    <span class="bracket-corner bracket-bl"></span>
+    <span class="bracket-corner bracket-br"></span>
+    {{ caller() }}
+</div>
+{% endmacro %}
+
+{% macro bracket_frame_body() %}
+<div class="bracket-frame-body">
+
+    {{ caller() }}
+</div>
+{% endmacro %}

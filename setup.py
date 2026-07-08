@@ -1,7 +1,12 @@
 import os
 import sys
 
-CONFIG_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "config.py")
+# =========================================================
+# PROJECT ROOT (THIS FIXES YOUR ISSUE)
+# This assumes setup.py is located in the PROJECT ROOT
+# =========================================================
+ROOT = os.path.abspath(os.path.dirname(__file__))
+CONFIG_PATH = os.path.join(ROOT, "config.py")
 
 def setup():
     if os.path.exists(CONFIG_PATH):
@@ -14,47 +19,48 @@ def setup():
 
     token = input("Secret token: ").strip()
     while not token:
-        print("  Token cannot be empty.")
-        token = input("Secret token: ").strip()
+        token = input("Secret token cannot be empty: ").strip()
 
-    server_url = input("Server URL (e.g. https://yourdomain.com): ").strip()
+    server_url = input("Server URL: ").strip()
     while not server_url:
-        print("  Server URL cannot be empty.")
-        server_url = input("Server URL: ").strip()
+        server_url = input("Server URL cannot be empty: ").strip()
 
-    git_ssh_key = input("Git SSH key path (leave blank to skip): ").strip()
-    if not git_ssh_key:
-        git_ssh_key = ""
+    git_ssh_key = input("Git SSH key path (optional): ").strip()
 
-    config_content = f'''import os
+    config_content = f"""import os
 
-_ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.abspath(os.path.dirname(__file__))
 
 TOKEN = "{token}"
-BASE_DIR = os.path.join(_ROOT, "Databases")
-SERVER_DIR = os.path.join(_ROOT, "Server")
-GIT_SSH_KEY = "{git_ssh_key}"
-LOCAL_URL = "http://127.0.0.1:5000"
 SERVER_URL = "{server_url}"
-'''
+GIT_SSH_KEY = "{git_ssh_key}"
 
-    with open(CONFIG_PATH, "w") as f:
+DB_DIR = os.path.join(ROOT, "databases")
+LOG_DIR = os.path.join(ROOT, "logs")
+CORE_DIR = os.path.join(ROOT, "core")
+
+LOCAL_URL = "http://127.0.0.1:5000"
+"""
+
+    with open(CONFIG_PATH, "w", encoding="utf-8") as f:
         f.write(config_content)
 
-    root = os.path.dirname(os.path.abspath(__file__))
-    os.makedirs(os.path.join(root, "Databases"), exist_ok=True)
-    os.makedirs(os.path.join(root, "Server"), exist_ok=True)
+    # ALWAYS create folders in PROJECT ROOT
+    os.makedirs(os.path.join(ROOT, "databases"), exist_ok=True)
+    os.makedirs(os.path.join(ROOT, "logs"), exist_ok=True)
+    os.makedirs(os.path.join(ROOT, "core"), exist_ok=True)
 
-    print(f"\nconfig.py created at {CONFIG_PATH}")
-    print("Databases/ directory ready")
-    print("Setup complete.\n")
+    print("\n✔ config.py created at ROOT")
+    print("✔ databases/ created at ROOT")
+    print("✔ logs/ created at ROOT")
+    print("✔ core/ created at ROOT")
+    print("✔ setup complete\n")
 
 
 if __name__ == "__main__":
     setup()
 
-    response = input("Run tests? (y/n): ").strip().lower()
-    if response == "y":
+    if input("Run tests? (y/n): ").strip().lower() == "y":
         import subprocess
-        test_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Tests", "local_test.py")
+        test_path = os.path.join(ROOT, "Tests", "local_test.py")
         subprocess.run([sys.executable, test_path])

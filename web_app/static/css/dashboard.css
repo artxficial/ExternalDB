@@ -1,0 +1,385 @@
+/* ==========================================================================
+   1. LAYOUT
+   ========================================================================== */
+
+.dashboard-section {
+    margin-bottom: 28px;
+    width: 100%;
+}
+
+.db-split {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    align-items: stretch;
+}
+
+/* LEFT / RIGHT PANES */
+.left-pane {
+    flex: 1.3;
+    min-width: 320px;
+}
+
+.right-pane {
+    flex: 1;
+    min-width: 320px;
+}
+
+/* fallback stacking */
+@media (max-width: 1000px) {
+    .db-split {
+        flex-direction: column;
+    }
+}
+
+
+/* ==========================================================================
+   2. PANEL HEADER
+   ========================================================================== */
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #2d2d34;
+    padding-bottom: 8px;
+}
+
+.panel-header h2 {
+    font-size: 1.2rem;
+    color: #f0f6fc;
+    margin: 0;
+}
+
+.text-danger {
+    color: #f85149;
+}
+
+
+/* ==========================================================================
+   3. DATABASE TABLE
+   ========================================================================== */
+
+.db-list-container {
+    width: 100%;
+    min-height: 200px;
+    overflow-x: auto;
+}
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 14px;
+}
+
+.dashboard-table th,
+.dashboard-table td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #1f2023;
+}
+
+.dashboard-table th {
+    background-color: #161b22;
+    color: #8b949e;
+    font-weight: 600;
+}
+
+
+/* ==========================================================================
+   4. DATABASE ROWS
+   ========================================================================== */
+
+.db-row {
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.db-row:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.db-row.active {
+    background-color: rgba(88, 166, 255, 0.07) !important;
+}
+
+.db-name-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.db-nickname {
+    font-weight: 600;
+    color: #f0f6fc;
+}
+
+.db-filename {
+    font-size: 11px;
+    color: #8b949e;
+}
+
+
+/* ==========================================================================
+   5. BUTTONS
+   ========================================================================== */
+
+.btn-console {
+    background-color: #21262d;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.btn-console:hover {
+    border-color: #8b949e;
+}
+
+.listening-active {
+    background-color: #0067f7;
+}
+
+.btn-primary {
+    background-color: #238636;
+    border-color: #2ea44f;
+    color: #fff;
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 13px;
+    justify-content: center;
+}
+
+.btn-primary:hover {
+    background-color: #2ea44f;
+}
+
+
+/* ==========================================================================
+   6. LOG STREAM GRID (3 COLUMNS)
+   ========================================================================== */
+
+.log-stream-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.log-stream-grid .console-box {
+    flex: 1;     
+    min-height: 0;
+}
+
+/* ==========================================================================
+   7. LOG SCREEN
+   ========================================================================== */
+
+
+.console-subheader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    background-color: #1634419d; /* Subtle dark header background */
+}
+
+.console-title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #a9a9a9; /* Soft muted gray text */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.console-log-screen {
+    background-color: #0d1117;
+    border: 1px solid #21262d;
+    height: 260px;
+    padding: 12px;
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #c9d1d9;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.console-log-screen::-webkit-scrollbar {
+    width: 6px;
+}
+
+.console-log-screen::-webkit-scrollbar-track {
+    background: #0d1117;
+}
+
+.console-log-screen::-webkit-scrollbar-thumb {
+    background-color: #6d6d6d;
+    border: 1px solid #0d1117;
+}
+
+.console-log-screen::-webkit-scrollbar-thumb:hover {
+    background-color: #3b5b75;
+}
+.console-log-screen.error-screen {
+    border-color: rgba(248, 81, 73, 0.2);
+    background-color: #0c090a;
+}
+
+
+/* ==========================================================================
+   8. LOG COLORS
+   ========================================================================== */
+
+/* ==========================================================================
+   ENHANCED LOG ENTRY STYLES
+   ========================================================================== */
+
+.log-entry {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    padding: 6px 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    
+    /* Clean line divider */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background-color 0.15s ease;
+}
+
+/* Subtle interactive row highlights */
+.log-entry:hover {
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Clear out the bottom line's divider so it doesn't double-border the container */
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+/* Status Semantic Variations */
+.log-entry.status-normal {
+    color: #c9d1d9; /* Clean text color fallback */
+}
+
+.log-entry.status-system { 
+    color: #58a6ff; 
+    background-color: rgba(88, 166, 255, 0.03); /* Soft background banner */
+}
+
+.log-entry.status-success { 
+    color: #56d364; 
+}
+
+.log-entry.status-warning { 
+    color: #e3b341; 
+    background-color: rgba(248, 216, 73, 0.034) /* Tint error rows red */
+}
+
+.log-entry.status-error { 
+    color: #f85149; 
+    background-color: rgba(248, 82, 73, 0.089); /* Tint error rows red */
+}
+
+/* ==========================================================================
+   9. CONFIG PANEL
+   ========================================================================== */
+
+.config-container {
+    width: 100%;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 12px;
+}
+
+.meta-label {
+    font-size: 12px;
+    color: #8b949e;
+}
+
+.meta-value {
+    font-family: ui-monospace, SFMono-Regular, monospace;
+    font-size: 14px;
+    color: #58a6ff;
+}
+
+.panel-divider {
+    border: 0;
+    border-top: 1px solid #21262d;
+    margin: 16px 0;
+}
+
+
+/* ==========================================================================
+   10. FORMS
+   ========================================================================== */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.input-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #c9d1d9;
+}
+
+.console-input {
+    width: 100%;
+    background-color: #0d1117;
+    border: 1px solid #30363d;
+    padding: 8px 12px;
+    color: #f0f6fc;
+    font-size: 14px;
+    outline: none;
+}
+
+.console-input:focus {
+    border-color: #58a6ff;
+}
+
+.form-hint {
+    font-size: 11px;
+    color: #8b949e;
+}
+
+
+/* ==========================================================================
+   11. UTILITIES
+   ========================================================================== */
+
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+
+
+/* ==========================================================================
+   12. ANIMATION
+   ========================================================================== */
+
+@keyframes pulse {
+    0% { transform: scale(0.95); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.5; }
+}

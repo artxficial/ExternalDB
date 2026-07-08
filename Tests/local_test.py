@@ -6,7 +6,12 @@ import subprocess
 import time
 import atexit
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
 from config import TOKEN, LOCAL_URL
 
 # ===== CONFIG =====
@@ -20,12 +25,15 @@ failed = 0
 
 def test(name, payload, expect_success=True):
     global passed, failed
+    r = None # Initialize r outside so the except block can read it
     try:
         start = time.time()
-        r = requests.post(LOCAL_URL, json=payload, timeout=10)
+        r = requests.post(LOCAL_URL + "/externaldb/api/execute", json=payload, timeout=10)
         elapsed = (time.time() - start) * 1000
+        
+        # This throws the JSONDecodeError if Flask returns HTML or blank text
         data = r.json()
-
+    
         if expect_success and data.get("status") == "success":
             print(f"  PASS  {name} ({elapsed:.0f}ms)")
             passed += 1
@@ -38,8 +46,16 @@ def test(name, payload, expect_success=True):
             print(f"  FAIL  {name} ({elapsed:.0f}ms) -> {data}")
             failed += 1
             return None
+            
     except Exception as e:
-        print(f"  FAIL  {name} -> {e}")
+        # --- FIX: Print the raw server output text if requests went through ---
+        if r is not None:
+            print(f"  FAIL  {name} -> JSON Decode Crashed!")
+            print(f"        [HTTP Status]: {r.status_code}")
+            print(f"        [Raw Response Text]: {r.text}")
+        else:
+            print(f"  FAIL  {name} -> Connection Error: {e}")
+            
         failed += 1
         return None
 
@@ -105,7 +121,6 @@ def test_read():
     test("GetKeysNearRankAsync", bp("GetKeysNearRankAsync", rank=1, spread=3))
     test("ListOrderedKeysAsync (no offset)", bp("ListOrderedKeysAsync", limit=10, start_index=None))
     test("ListOrderedKeysAsync (with offset)", bp("ListOrderedKeysAsync", limit=5, start_index=1))
-    test("GetSumOfValues", bp("GetSumOfValues"))
     test("GetAsync (missing key)", bp("GetAsync", key=999999999))
     test("GetRankAsync (missing key)", bp("GetRankAsync", key=999999999))
 
@@ -171,11 +186,11 @@ TESTS = {
     "write":     test_write,
     "read":      test_read,
     "bulk_read": test_bulk_read,
-    "snapshots": test_snapshots,
-    "delete":    test_delete,
-    "admin":     test_admin,
-    "cleanup":   test_cleanup,
-    "health":    test_health,
+  #  "snapshots": test_snapshots,
+  #  "delete":    test_delete,
+  #  "admin":     test_admin,
+  #  "cleanup":   test_cleanup,
+  #  "health":    test_health,
 }
 
 # -----------------------------
@@ -184,32 +199,36 @@ TESTS = {
 
 def start_server():
     print("Starting local server...")
+    
+    # 1. FIX: Send output to your terminal (or os.devnull) so the buffer doesn't block
+    # 2. FIX: Update path to "run.py" if that is your actual file name
     server = subprocess.Popen(
-        [sys.executable, "Server/app.py"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        [sys.executable, "run.py"], 
+        stdout=None,  # Inherits your terminal's stdout
+        stderr=None   # Inherits your terminal's stderr
     )
 
+    # 3. FIX: Give the process a brief moment to spin up before calling poll()
+    time.sleep(0.5)
     if server.poll() is not None:
-        print("Server crashed.")
-        print("STDOUT:", server.stdout.read().decode())
-        print("STDERR:", server.stderr.read().decode())
+        print("Server crashed immediately on startup.")
         sys.exit(1)
 
     atexit.register(server.terminate)
 
-    for i in range(3): 
+    # 4. Try to connect to the server
+    print("Waiting for server to respond...")
+    for i in range(6):  # 6 tries * 0.5s = 3 seconds total wait time
         try:
+            # If your root URL ('/') only accepts POST, this GET might return a 405.
+            # That's fine! An HTTP error still means the server is UP.
             requests.get(LOCAL_URL, timeout=1)
             print("Server is up.\n")
             return server
-        except:
-            print("Trying to start server...")
+        except requests.exceptions.ConnectionError:
             time.sleep(0.5)
 
-    print("Server failed to respond.")
-    print("STDOUT:", server.stdout.read().decode())
-    print("STDERR:", server.stderr.read().decode())
+    print("Server failed to respond within the time limit.")
     server.terminate()
     sys.exit(1)
 

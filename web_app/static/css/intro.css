@@ -1,0 +1,58 @@
+/* === Intro Overlay (video splash screen) === */
+
+.intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.intro-overlay.playing {
+    z-index: -1;
+    cursor: default;
+}
+
+.intro-overlay video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.intro-text-wrap {
+    position: relative;
+    z-index: 1000;
+    display: inline-block;
+    top: 150px;
+    animation: bounce .5s infinite linear;
+    text-align: center;
+    letter-spacing: 5px;
+    white-space: nowrap;
+    font-size: clamp(3px, 3vw, 20px);
+}
+
+.intro-text-stroke {
+    font-family: 'Press Start 2P', monospace;
+    font-size: inherit;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.intro-text-inner {
+    font-family: 'Press Start 2P', monospace;
+    font-size: inherit;
+    color: #5af4ff;
+    position: relative;
+}
+
+@keyframes bounce {
+    0%, 49% { transform: translateY(-3px); }
+    50%, 100% { transform: translateY(3px); }
+}

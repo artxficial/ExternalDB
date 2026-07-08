@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% from "macros.html" import bracket_frame, bracket_frame_body %}
+
+{% block title %}Home — artxficial.dev{% endblock %}
+{% block content %}
+    {% call bracket_frame() %}     
+
+    <header>
+        <h1>Live Stats</h1>
+        <p class="subtitle">these are being sent to this server from my brain. im like lain im freakin wired to the internet or somethign like that...  i never watched lain but that probably happened right? thats definitely somethign that would happen in lain </p>
+    </header>
+
+    <div class="status-bar">
+        <div class="status-card">
+            <div class="status-card-avatar">
+                <img src="{{ url_for('static', filename='img/mikudance.gif') }}" alt="Miku" class="avatar-img">
+            </div>
+            <div class="status-card-info">
+                <h3 class="status-label">Miku Status</h3>
+                <div class="status-value online">
+                    <span class="status-dot green"></span>
+                    <span class="status-text">working hardly</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-card">
+            <div class="status-card-avatar">
+                <img src="{{ url_for('static', filename='img/teto.gif') }}" alt="Teto" class="avatar-img">
+            </div>
+            <div class="status-card-info">
+                <h3 class="status-label">Teto Status</h3>
+                <div class="status-value offline">
+                    <span class="status-dot red"></span>
+                    <span class="status-text">hardly working</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-card">
+            <div class="status-card-info" style="padding-left: 15px;">
+                <h3 class="status-label">Bank Balance</h3>
+                <div id="balance" style="color: lightgreen; font-size: 1.5rem; font-weight: bold; font-family: system-ui;">$18,293,329</div>
+                <div class="status-text" style="font-size: 12px; opacity: 0.7;">REAL</div>
+            </div>
+        </div>
+    </div>
+
+    {% endcall %}
+
+    {#
+    {% call bracket_frame() %}     
+    <header>
+        <h1>Links</h1>
+        <p class="subtitle">WARNING: DO NOT DELETE FLAPPY BIRD OFF OF UR PHONE. ITS OFF THE APP STORE AND YOU CANNOT GET IT BACK AGAIN</p>
+    </header>
+
+    <div class="status-bar">
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener" class="status-card link-card" style="color: #37cc5c; text-decoration: none;">
+            <div class="status-card-info" style="padding-left: 15px;">
+                <h3 class="status-label">GitHub</h3>
+                <div class="status-value" style="font-size: 14px;">@artxficial</div>
+            </div>
+        </a>
+    </div>
+
+    {% endcall %}
+    #}
+
+{% endblock %}
