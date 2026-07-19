@@ -36,8 +36,11 @@ def test(name, payload, expect_success=True):
     
         if expect_success and data.get("status") == "success":
             print(f"  PASS  {name} ({elapsed:.0f}ms)")
+            result = data.get("result")
+            if result is not None:
+                print(f"         {json.dumps(result, indent=2)}")
             passed += 1
-            return data.get("results")
+            return result
         elif not expect_success and r.status_code != 200:
             print(f"  PASS  {name} ({elapsed:.0f}ms) (expected failure: {data.get('error')})")
             passed += 1
@@ -188,8 +191,8 @@ TESTS = {
     "bulk_read": test_bulk_read,
   #  "snapshots": test_snapshots,
   #  "delete":    test_delete,
-  #  "admin":     test_admin,
-  #  "cleanup":   test_cleanup,
+   # "admin":     test_admin,
+   # "cleanup":   test_cleanup,
   #  "health":    test_health,
 }
 

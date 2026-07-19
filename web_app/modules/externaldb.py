@@ -2,7 +2,6 @@ import os
 import sqlite3
 from datetime import datetime
 from flask import Blueprint, request, jsonify, render_template
-
 from config import DB_DIR, TOKEN, ROOT
 
 import logging 
@@ -55,74 +54,53 @@ from core.database_manager import db_manager
 from core.database_class import ACTION_MAP
 
 @externaldb_bp.route("/api/execute", methods=["POST"])
-@externaldb_bp.route("/api/execute", methods=["POST"])
 def execute():
     data = request.get_json() or {}
- 
-    token = data.get("token")
-    db_id = data.get("datastore_name")
-    place_id = data.get("place_id")
     action = data.get("action")
- 
-    if not token or not db_id or not place_id or not action:
-        return jsonify({"error": "missing auth/db/place_id/action"}), 400
- 
-    if token != TOKEN:
-        return jsonify({"error": "unauthorized"}), 401
- 
+
+    # --- Action validation ---
+    if not action:
+        return jsonify({"error": "missing action"}), 400
     if action not in ACTION_MAP:
         return jsonify({"error": f"unknown action '{action}'"}), 400
- 
+
     action_spec = ACTION_MAP[action]
-    defaults = action_spec.get("defaults", {})
- 
-    # Apply defaults for any missing args before checking what's still missing.
-    for arg, default in defaults.items():
+
+    # --- Field validation ---
+    DEFAULT_REQUIRES = ["token", "place_id", "datastore_name"]
+    required_fields = action_spec.get("requires", DEFAULT_REQUIRES)
+    missing_fields = [f for f in required_fields if not data.get(f)]
+    if missing_fields:
+        return jsonify({"error": f"missing fields: {missing_fields}"}), 400
+
+    # --- Auth ---
+    if data.get("token") != TOKEN:
+        return jsonify({"error": "unauthorized"}), 401
+
+    # --- Arg validation ---
+    for arg, default in action_spec.get("defaults", {}).items():
         data.setdefault(arg, default)
- 
-    missing = [arg for arg in action_spec["args"] if arg not in data]
-    if missing:
-        return jsonify({"error": f"missing args: {missing}"}), 400
- 
+
+    missing_args = [arg for arg in action_spec["args"] if arg not in data]
+    if missing_args:
+        return jsonify({"error": f"missing args: {missing_args}"}), 400
+
+    # --- Execute ---
+    db_id = data.get("datastore_name")
+    place_id = data.get("place_id")
+
     context = {
         "place_id": place_id,
         "datastore_name": db_id,
         "query_template": action_spec.get("query"),
         "multi": action_spec.get("multi", False),
+        "build_params": action_spec.get("build_params"),
     }
 
     try:
-        if action_spec["op_type"] == "single":
-            build_params = action_spec.get("build_params")
-            if build_params:
-                params = build_params(data)
-            else:
-                params = [data[arg] for arg in action_spec["args"]]
-
-            result = db_manager.execute_single(context, params)
-
-        elif action_spec["op_type"] == "bulk":
-            bulk_arg_name = action_spec["args"][0]
-            payload = data[bulk_arg_name]
-            result = db_manager.execute_bulk(context, payload)
-
-        # ---> NEW: Handle custom Python functions <---
-        elif action_spec["op_type"] == "function":
-            handler = action_spec["handler"]
-            # Pass everything the handler might need to execute
-            result = handler(db_manager, context, data)
-
-        else:
-            return jsonify({"error": f"unknown op_type for '{action}'"}), 500
-
+        result = db_manager.execute(action_spec, context, data)
         write_db_log(db_id, f"[{datetime.utcnow()}] ACTION={action}")
-
-        return jsonify({
-            "status": "success",
-            "db": db_id,
-            "action": action,
-            "result": result
-        })
+        return jsonify({"status": "success", "db": db_id, "action": action, "result": result})
 
     except Exception as e:
         write_db_log(db_id, f"[ERROR] {str(e)}")
@@ -163,13 +141,20 @@ def log_incoming_payloads():
 
 @externaldb_bp.route("/api/logs/stream", methods=["POST"])
 def stream_logs():
-    """Single unified endpoint to fetch tail logs for any registered log type."""
-    # Parse the incoming JSON body
     data = request.get_json() or {}
-    log_type = data.get("type", "activity")  # Default fallback if not provided
-    token = data.get("token")
 
-    # Security check: Ensure they aren't requesting an unregistered file path
+    # Auth check
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.lower().startswith("bearer "):
+        token = auth_header.split(" ")[1]
+    else:
+        token = auth_header or data.get("token")
+
+    if not token or token != TOKEN:
+        return jsonify({"valid": False, "error": "Unauthorized"}), 401
+
+    log_type = data.get("type", "activity")
+
     if log_type not in LOG_REGISTRY:
         return f"[SYSTEM ERROR] Invalid or unauthorized log stream type: '{log_type}'", 400
 

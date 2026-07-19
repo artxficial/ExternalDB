@@ -225,19 +225,19 @@ class LogStreamViewer {
         }
     }
 
-    fetchLogs() {
-        fetch(this.endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: this.type }) // <-- Send it to the backend here!
-        })
-        .then(response => response.ok ? response.text() : Promise.reject(response.status))
-        .then(data => {
-            const lines = data.trim().split('\n');
-            this.renderLogs(lines);
-        })
-        .catch(err => console.error(`[STREAM ERROR] ${this.endpoint}:`, err));
-    }
+fetchLogs() {
+    authFetch(this.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: this.type })
+    })
+    .then(response => response.ok ? response.text() : Promise.reject(response.status))
+    .then(data => {
+        const lines = data.trim().split('\n');
+        this.renderLogs(lines);
+    })
+    .catch(err => console.error(`[STREAM ERROR] ${this.endpoint}:`, err));
+}
 
 renderLogs(lines) {
     this.container.innerHTML = '';
@@ -299,12 +299,12 @@ window.__spaTeardown.push(function () {
     if (accessLogger.isListening) accessLogger.stop();
 });
 
-document.querySelectorAll('.requires-auth').forEach(function (el) {
+ document.querySelectorAll('.requires-auth').forEach(function (el) {
     el.addEventListener('click', function (e) {
         if (typeof isAuthenticated === 'function' && !isAuthenticated()) {
             e.preventDefault();
             e.stopImmediatePropagation();
-            showPopup('You need to enter a valid token first.', 'Got it');
+            showPopup('u need like O5 council clearance to do tht btw', 'im a scp');
         }
     }, true);
 });

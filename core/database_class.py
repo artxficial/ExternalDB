@@ -1,8 +1,24 @@
 import sqlite3  # or sqlite3 / psycopg2 depending on your backend
 from typing import Dict, List, Tuple, Any, Optional, Union
 
-
 ACTION_MAP = {
+     # ----------------------------------------------------------------------------
+    # FUNCTIONS
+    # ----------------------------------------------------------------------------
+    "ListDatastores": {
+        "args": [],
+        "op_type": "function",
+        "requires": ["token", "place_id"],  # no datastore_name
+        "handler": lambda db, context, data: db.list_datastores(context["place_id"])
+    },
+
+    "RemoveDatastore": {
+        "args": [],
+        "requires": ["token", "place_id", "key"],
+        "op_type": "function",
+        "handler": lambda db, context, data: db.remove_datastore(context["place_id"], data["key"])
+    },
+
     # ----------------------------------------------------------------------------
     # SINGLE KEY OPERATIONS: (operation_type="single")
     # ----------------------------------------------------------------------------
@@ -108,6 +124,58 @@ ACTION_MAP = {
         """
     },
 
+    "BulkGetAsync": {
+    "args": ["list"],
+    "op_type": "bulk",
+    "multi": True,
+    "query": "SELECT key, value FROM {table} WHERE key = ?"
+},
+
+    "BulkGetRankAsync": {
+        "args": ["list"],
+        "op_type": "bulk",
+        "multi": True,
+        "query": """
+            SELECT key, rank FROM (
+                SELECT key,
+                    RANK() OVER (ORDER BY value DESC) AS rank
+                FROM {table}
+            ) WHERE key = ?
+        """
+    },
+
+    "BulkGetValueAtPercentile": {
+        "args": ["list"],
+        "op_type": "bulk",
+        "multi": True,
+        "query": """
+            SELECT value, rank, percentile FROM (
+                SELECT value,
+                    RANK() OVER (ORDER BY value DESC) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile
+                FROM {table}
+            ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
+        """
+    },
+
+    "BulkGetKeysNearRankAsync": {
+        "args": ["list"],
+        "op_type": "bulk",
+        "multi": True,
+        "defaults": {},
+        "build_params": lambda data: [data["rank"] - data["spread"], data["rank"] + data["spread"]],
+        "query": """
+            SELECT key, value, rank, percentile, total_keys FROM (
+                SELECT key, value,
+                    ROW_NUMBER() OVER (ORDER BY value DESC) AS row_index,
+                    RANK() OVER (ORDER BY value DESC) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile,
+                    COUNT(*) OVER () AS total_keys
+                FROM {table}
+            ) WHERE row_index >= ? AND row_index < ?
+            ORDER BY value DESC
+        """
+    },
 }
 
 DEFAULT_CONFIGURATIONS = {

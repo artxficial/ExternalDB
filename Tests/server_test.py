@@ -9,6 +9,7 @@ if PROJECT_ROOT not in sys.path:
 from config import TOKEN, SERVER_URL
 
 SERVER_URL = SERVER_URL + "/externaldb/api/execute"  # Ensure the endpoint is correct
+#SERVER_URL = "https://artxficial.dev/externaldb/api/execute"
 print(f"Using SERVER_URL: {SERVER_URL}")
 
 # Basic connection test

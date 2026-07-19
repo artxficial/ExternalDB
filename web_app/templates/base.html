@@ -171,8 +171,6 @@ initIntro();
 </script>
 
 <!-- ===== TOKEN AUTH SCRIPT ===== -->
-
-<!-- ===== TOKEN AUTH SCRIPT ===== -->
 <script>
     const AUTH_STORAGE_KEY = 'authToken';
 
@@ -183,7 +181,7 @@ initIntro();
         input.classList.remove('valid', 'invalid');
 
         if (!token) {
-            showPopup('Please type something in first.', 'My bad');
+            showPopup('u just like pressing buttons huh?', 'wats ur problem');
             return;
         }
 
@@ -239,6 +237,17 @@ initIntro();
     // Client-side only. This drives UI state (badge, enabling buttons) for
     // convenience — it is NOT real access control. Every server call still
     // validates the token independently (see externaldb_bp's TOKEN check).
+
+    function authFetch(url, options = {}) {
+    const token = sessionStorage.getItem('authToken');
+    return fetch(url, {
+        ...options,
+        headers: {
+            ...(options.headers || {}),
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+        }
+    });
+    }
 
     function setAuthToken(token) {
         sessionStorage.setItem(AUTH_STORAGE_KEY, token);
