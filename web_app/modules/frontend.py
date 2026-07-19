@@ -4,9 +4,6 @@ import subprocess
 import time
 from datetime import datetime, timezone, timedelta
 
-
-
-
 frontend_bp = Blueprint("frontend", __name__)
 
 EST = timezone(timedelta(hours=-5))

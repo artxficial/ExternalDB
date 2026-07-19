@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from flask import Blueprint, request, jsonify, render_template
 from config import DB_DIR, TOKEN, ROOT
 
@@ -51,6 +51,7 @@ def get_storage_used():
     return f"{mb:.2f} MB / 10 GB"
 
 
+EST = timezone(timedelta(hours=-5))
 def get_last_request():
     log_path = os.path.join(LOG_DIR, "access.log")
     if not os.path.exists(log_path):
@@ -64,13 +65,12 @@ def get_last_request():
                 continue
             try:
                 ts_str = line[1:15]
-                ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(year=datetime.now().year)
+                ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(year=datetime.now().year, tzinfo=timezone.utc)
                 last_ts = ts
             except ValueError:
                 continue
 
-    return last_ts.strftime("%H:%M:%S") if last_ts else "Never"
-
+    return last_ts.astimezone(EST).strftime("[%m/%d] %I:%M %p") if last_ts else "Never"
 
 def get_requests_per_minute():
     log_path = os.path.join(LOG_DIR, "access.log")
