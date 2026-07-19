@@ -11,9 +11,9 @@
     </header>
     <div class="status-bar">
         <div class="card status-card">
-            <div class="status-label">Database Status</div>
-            <div class="status-value offline">
-                <span class="dot red"></span>Offline
+            <div class="status-label">Status</div>
+            <div class="status-value online">
+                <span class="dot green"></span>Online
             </div>
         </div>
         <div class="card status-card">
@@ -23,6 +23,14 @@
         <div class="card status-card">
             <div class="status-label">Requests / Min</div>
             <div class="status-value">{{ req_per_minute }}</div>
+        </div>
+        <div class="card status-card">
+            <div class="status-label">Storage Used</div>
+            <div class="status-value">{{ storage_used }}</div>
+        </div>
+        <div class="card status-card">
+            <div class="status-label">Last Request</div>
+            <div class="status-value">{{ last_request }}</div>
         </div>
     </div>
     {% endcall %}

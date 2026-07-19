@@ -32,6 +32,46 @@ def write_db_log(db_id, line):
 def get_db_path(db_id):
     return os.path.join(DB_DIR, f"{db_id}.db")
 
+# =========================================================
+# DASHBOARD INFO
+# =========================================================
+
+def get_storage_used():
+    if not os.path.exists(DB_DIR):
+        return "0.00 MB / 10 GB"
+    total = sum(
+        os.path.getsize(os.path.join(DB_DIR, f))
+        for f in os.listdir(DB_DIR)
+        if f.endswith(".db")
+    )
+    gb = total / (1024 ** 3)
+    if gb >= 1:
+        return f"{gb:.2f} GB / 10 GB"
+    mb = total / (1024 * 1024)
+    return f"{mb:.2f} MB / 10 GB"
+
+
+def get_last_request():
+    log_path = os.path.join(LOG_DIR, "access.log")
+    if not os.path.exists(log_path):
+        return "Never"
+
+    last_ts = None
+
+    with open(log_path, "r", encoding="utf-8") as f:
+        for line in f:
+            if "/externaldb/" not in line:
+                continue
+            try:
+                ts_str = line[1:15]
+                ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(year=datetime.now().year)
+                last_ts = ts
+            except ValueError:
+                continue
+
+    return last_ts.strftime("%H:%M:%S") if last_ts else "Never"
+
+
 def get_requests_per_minute():
     log_path = os.path.join(LOG_DIR, "access.log")
     if not os.path.exists(log_path):
@@ -61,8 +101,9 @@ def get_requests_per_minute():
 def dashboard():
     db_count = len([f for f in os.listdir(DB_DIR) if f.endswith(".db")])
     req_per_minute = get_requests_per_minute()
-    return render_template("ExternalDB.html", db_count=db_count, req_per_minute=req_per_minute)
-
+    storage_used = get_storage_used()
+    last_request = get_last_request()
+    return render_template("ExternalDB.html", db_count=db_count, req_per_minute=req_per_minute, storage_used=storage_used, last_request=last_request)
 
 # =========================================================
 # EXECUTE API (ROBLOX)
