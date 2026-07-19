@@ -23,7 +23,7 @@ def require_token(f):
         
         # Validate against the single configuration TOKEN
         if not token or token != TOKEN:
-            print(f"[AUTH FAILED] Unauthorized access attempt blocked from IP: {request.remote_addr}")
+            logger.info(f"[AUTH FAILED] Unauthorized access attempt blocked from IP: {request.remote_addr}")
             return jsonify({"valid": False, "error": "Unauthorized: Invalid or missing security token."}), 401
             
         return f(*args, **kwargs)
