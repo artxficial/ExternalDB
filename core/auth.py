@@ -15,14 +15,6 @@ def extract_token():
 def is_valid_token(token):
     return token and token == TOKEN
 
-def log_auth_result(token, ip=None):
-    if not token:
-        logger.warning(f"[AUTH FAILED] No token in payload. IP: {ip}")
-    elif not is_valid_token(token):
-        logger.warning(f"[AUTH FAILED] Token did not match. IP: {ip}")
-    else:
-        logger.info(f"[AUTH SUCCESS] Token accepted. IP: {ip}")
-
 def check_token():
     token = extract_token()
     if not is_valid_token(token):
