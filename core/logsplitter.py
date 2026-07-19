@@ -11,6 +11,12 @@ APP_LOG_PATH = "logs/app.log"
 ACCESS_LOG_PATH = "logs/access.log"
 ERROR_LOG_PATH = "logs/error.log"
 
+class SafeFileHandler(logging.FileHandler):
+    def emit(self, record):
+        os.makedirs(os.path.dirname(self.baseFilename), exist_ok=True)
+        if not os.path.exists(self.baseFilename):
+            self.stream = self._open()
+        super().emit(record)
 
 # =========================
 # ENVIRONMENT DETECTION
@@ -139,7 +145,7 @@ def init_logging_development():
     os.makedirs("logs", exist_ok=True)
 
     # ===== APP LOG FILE (WITH FILTER) =====
-    app_file_handler = logging.FileHandler(APP_LOG_PATH, encoding="utf-8")
+    app_file_handler = SafeFileHandler(APP_LOG_PATH, encoding="utf-8")
     app_file_handler.setFormatter(
         logging.Formatter(
             "[%(asctime)s] %(message)s",
@@ -150,7 +156,7 @@ def init_logging_development():
     app_file_handler.addFilter(NoiseFilter())
 
     # ===== ERROR LOG FILE (WITH FILTER) =====
-    error_file_handler = logging.FileHandler(ERROR_LOG_PATH, encoding="utf-8")
+    error_file_handler = SafeFileHandler(ERROR_LOG_PATH, encoding="utf-8")
     error_file_handler.setFormatter(
         logging.Formatter(
             "[%(asctime)s] [ERROR] %(message)s",
@@ -192,7 +198,7 @@ def init_logging_production():
     os.makedirs("logs", exist_ok=True)
 
     # ===== ACCESS LOG HANDLER =====
-    access_file_handler = logging.FileHandler(ACCESS_LOG_PATH, encoding="utf-8")
+    access_file_handler = SafeFileHandler(ACCESS_LOG_PATH, encoding="utf-8")
     access_file_handler.setFormatter(
         logging.Formatter(
             "[%(asctime)s] %(message)s",
@@ -212,7 +218,7 @@ def init_logging_production():
     access_logger.addHandler(access_file_handler)
 
     # ===== APP LOG HANDLER =====
-    app_file_handler = logging.FileHandler(APP_LOG_PATH, encoding="utf-8")
+    app_file_handler = SafeFileHandler(APP_LOG_PATH, encoding="utf-8")
     app_file_handler.setFormatter(
         logging.Formatter(
             "[%(asctime)s] %(message)s",
@@ -222,7 +228,7 @@ def init_logging_production():
     app_file_handler.addFilter(NoiseFilter())
 
     # ===== ERROR LOG HANDLER =====
-    error_file_handler = logging.FileHandler(ERROR_LOG_PATH, encoding="utf-8")
+    error_file_handler = SafeFileHandler(ERROR_LOG_PATH, encoding="utf-8")
     error_file_handler.setFormatter(
         logging.Formatter(
             "[%(asctime)s] [ERROR] %(message)s",
