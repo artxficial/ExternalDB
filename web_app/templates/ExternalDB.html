@@ -136,9 +136,14 @@
     <div class="panel-header log-header">
         <h2>Log Streams</h2>
 
-        <button id="btn-listen" class="btn-console requires-auth" >
+        <button id="btn-listen" class="btn-console requires-auth">
             <span class="pulse-indicator"></span>
             Listen Live
+        </button>
+
+        <button id="btn-clear" class="btn-console requires-auth">
+            <span class="pulse-indicator"></span>
+            Clear Logs
         </button>
     </div>
 
@@ -317,6 +322,21 @@ window.__spaTeardown.push(function () {
     }, true);
 });
 
+document.getElementById('btn-clear').addEventListener('click', function() {
+    fetch('/externaldb/api/logs/clear', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: getStoredToken() })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('log-access').innerHTML = '<div class="log-entry status-system">[SYSTEM] Logs cleared.</div>';
+            document.getElementById('log-activity').innerHTML = '<div class="log-entry status-system">[SYSTEM] Logs cleared.</div>';
+        }
+    })
+    .catch(err => console.error('[CLEAR ERROR]', err));
+});
 
 </script>
 

@@ -218,3 +218,21 @@ def stream_logs():
             return f"[SYSTEM ERROR] Failed to read log file: {str(e)}", 500
 
     return f"[SYSTEM] Live stream channel '{log_type}' initialized. Waiting for entries..."
+
+
+@externaldb_bp.route("/api/logs/clear", methods=["POST"])
+@require_token
+def clear_logs():
+    try:
+        for file_path in LOG_REGISTRY.values():
+            if os.path.exists(file_path):
+                open(file_path, "w").close()
+        
+        timestamp = datetime.now(EST).strftime("[%m/%d] %I:%M %p")
+        for file_path in LOG_REGISTRY.values():
+            with open(file_path, "a", encoding="utf-8") as f:
+                f.write(f"[SYSTEM] Logs cleared at {timestamp}\n")
+
+        return jsonify({"status": "success"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
