@@ -34,26 +34,31 @@ def get_db_path(db_id):
 
 def get_requests_per_minute():
     log_path = os.path.join(LOG_DIR, "access.log")
+    logger.info(f"[DEBUG] log_path={log_path}, exists={os.path.exists(log_path)}")
     if not os.path.exists(log_path):
         return 0
 
-    cutoff = datetime.now() - timedelta(minutes=1)
+    cutoff = datetime.now() - timedelta(hours=1)
     count = 0
 
     with open(log_path, "r", encoding="utf-8") as f:
         for line in f:
             if "/externaldb/" not in line:
                 continue
+            logger.info(f"[DEBUG] matched line: {repr(line[:60])}")
             try:
-                ts_str = line[1:18]  # grabs "07-19 14:23:01"
+                ts_str = line[1:18]
+                logger.info(f"[DEBUG] ts_str={repr(ts_str)}")
                 ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(year=datetime.now().year)
+                logger.info(f"[DEBUG] ts={ts}, cutoff={cutoff}, within={ts >= cutoff}")
                 if ts >= cutoff:
                     count += 1
-            except ValueError:
+            except ValueError as e:
+                logger.info(f"[DEBUG] ValueError: {e}")
                 continue
 
+    logger.info(f"[DEBUG] total count={count}")
     return count
-
 # =========================================================
 # DASHBOARD
 # =========================================================
