@@ -6,7 +6,7 @@ from datetime import datetime, timezone, timedelta
 
 frontend_bp = Blueprint("frontend", __name__)
 
-EST = timezone(timedelta(hours=-5))
+EST = timezone(timedelta(hours=-4))
 
 def get_last_deploy():
     try:

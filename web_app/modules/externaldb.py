@@ -51,7 +51,7 @@ def get_storage_used():
     return f"{mb:.2f} MB / 10 GB"
 
 
-EST = timezone(timedelta(hours=-5))
+EST = timezone(timedelta(hours=-4))
 def get_last_request():
     log_path = os.path.join(LOG_DIR, "access.log")
     if not os.path.exists(log_path):
