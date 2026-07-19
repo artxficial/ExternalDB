@@ -42,17 +42,17 @@ def get_requests_per_minute():
 
     with open(log_path, "r", encoding="utf-8") as f:
         for line in f:
-            if "/externaldb/api" not in line:
+            if "/externaldb/" not in line:
                 continue
             try:
-                ts_str = line[1:15]  # grabs "07-19 21:51:00"
+                ts_str = line[1:15]
                 ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(year=datetime.now().year)
                 if ts >= cutoff:
                     count += 1
             except ValueError:
                 continue
 
-    return count
+    return round(count / 60, 2)
 # =========================================================
 # DASHBOARD
 # =========================================================
