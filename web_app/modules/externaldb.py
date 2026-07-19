@@ -1,6 +1,6 @@
 import os
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Blueprint, request, jsonify, render_template
 from config import DB_DIR, TOKEN, ROOT
 
@@ -32,6 +32,27 @@ def write_db_log(db_id, line):
 def get_db_path(db_id):
     return os.path.join(DB_DIR, f"{db_id}.db")
 
+def get_requests_per_minute():
+    log_path = os.path.join(LOG_DIR, "access.log")
+    if not os.path.exists(log_path):
+        return 0
+
+    cutoff = datetime.now() - timedelta(minutes=1)
+    count = 0
+
+    with open(log_path, "r", encoding="utf-8") as f:
+        for line in f:
+            if "/externaldb/" not in line:
+                continue
+            try:
+                ts_str = line[1:18]  # grabs "07-19 14:23:01"
+                ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(year=datetime.now().year)
+                if ts >= cutoff:
+                    count += 1
+            except ValueError:
+                continue
+
+    return count
 
 # =========================================================
 # DASHBOARD
@@ -39,7 +60,9 @@ def get_db_path(db_id):
 
 @externaldb_bp.route("/", methods=["GET"])
 def dashboard():
-    return render_template("ExternalDB.html")
+    db_count = len([f for f in os.listdir(DB_DIR) if f.endswith(".db")])
+    req_per_minute = get_requests_per_minute()
+    return render_template("ExternalDB.html", db_count=db_count, req_per_minute=req_per_minute)
 
 
 # =========================================================
