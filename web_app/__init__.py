@@ -22,6 +22,10 @@ def create_app() -> Flask:
         static_folder=os.path.join(root_dir, "web_app", "static")
     )
 
+    # Real IPs
+    from werkzeug.middleware.proxy_fix import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
+
     app.config.from_object('config')
     app.config['TEMPLATES_AUTO_RELOAD'] = True
 
