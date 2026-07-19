@@ -47,8 +47,6 @@ def create_app() -> Flask:
                 blueprint = getattr(mod, bp_attr_name)
 
                 url_prefix = None if module_name == "frontend" else f"/{module_name}"
-                if module_name == "datastore_api":
-                    url_prefix = "/api/datastore"
 
                 app.register_blueprint(blueprint, url_prefix=url_prefix)
                 print(f"[SUCCESS] Auto-deployed module: '{module_name}' via prefix '{url_prefix or '/'}'")

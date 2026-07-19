@@ -3,6 +3,8 @@ import sqlite3
 from datetime import datetime, timedelta, timezone
 from flask import Blueprint, request, jsonify, render_template
 from config import DB_DIR, TOKEN, ROOT
+from core.auth import check_token, require_token
+
 
 import logging 
 logger = logging.getLogger(__name__)
@@ -117,11 +119,11 @@ from core.database_manager import db_manager
 from core.database_class import ACTION_MAP
 
 @externaldb_bp.route("/api/execute", methods=["POST"])
+@require_token
 def execute():
     data = request.get_json() or {}
     action = data.get("action")
 
-    # --- Action validation ---
     if not action:
         return jsonify({"error": "missing action"}), 400
     if action not in ACTION_MAP:
@@ -129,18 +131,12 @@ def execute():
 
     action_spec = ACTION_MAP[action]
 
-    # --- Field validation ---
-    DEFAULT_REQUIRES = ["token", "place_id", "datastore_name"]
+    DEFAULT_REQUIRES = ["place_id", "datastore_name"]
     required_fields = action_spec.get("requires", DEFAULT_REQUIRES)
     missing_fields = [f for f in required_fields if not data.get(f)]
     if missing_fields:
         return jsonify({"error": f"missing fields: {missing_fields}"}), 400
 
-    # --- Auth ---
-    if data.get("token") != TOKEN:
-        return jsonify({"error": "unauthorized"}), 401
-
-    # --- Arg validation ---
     for arg, default in action_spec.get("defaults", {}).items():
         data.setdefault(arg, default)
 
@@ -148,7 +144,6 @@ def execute():
     if missing_args:
         return jsonify({"error": f"missing args: {missing_args}"}), 400
 
-    # --- Execute ---
     db_id = data.get("datastore_name")
     place_id = data.get("place_id")
 
@@ -168,6 +163,7 @@ def execute():
     except Exception as e:
         write_db_log(db_id, f"[ERROR] {str(e)}")
         return jsonify({"error": str(e)}), 500
+    
 # =========================================================
 # STREAM RAW LOGS
 # =========================================================
@@ -203,19 +199,9 @@ def log_incoming_payloads():
 
 
 @externaldb_bp.route("/api/logs/stream", methods=["POST"])
+@require_token
 def stream_logs():
     data = request.get_json() or {}
-
-    # Auth check
-    auth_header = request.headers.get("Authorization")
-    if auth_header and auth_header.lower().startswith("bearer "):
-        token = auth_header.split(" ")[1]
-    else:
-        token = auth_header or data.get("token")
-
-    if not token or token != TOKEN:
-        return jsonify({"valid": False, "error": "Unauthorized"}), 401
-
     log_type = data.get("type", "activity")
 
     if log_type not in LOG_REGISTRY:
