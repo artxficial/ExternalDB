@@ -56,6 +56,61 @@
 <div style="padding: 12px 0;"></div>
 
 {% call bracket_frame() %}
+
+<header>
+    <h1>Last.fm</h1>
+    <p class="subtitle">top albums this week</p>
+</header>
+
+<div class="lastfm-wrapper">
+
+    <div class="lastfm-grid" id="lastfm-grid"></div>
+
+    <div class="lastfm-side">
+
+        <div class="lastfm-nowplaying">
+            <div class="lastfm-np-status" id="np-status">
+                loading
+            </div>
+
+            <div class="lastfm-nowplaying-inner">
+
+                <img id="np-img" src="" alt="Album cover">
+
+                <div class="lastfm-np-text">
+                    <div class="lastfm-np-track" id="np-track">
+                    </div>
+
+                    <div class="lastfm-np-artist" id="np-artist">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="lastfm-scrobbles">
+
+            <div class="lastfm-scrobbles-label">
+                total scrobbles
+            </div>
+
+            <div class="lastfm-scrobbles-count" id="scrobble-count">
+                —
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endcall %}
+
+
+<div style="padding: 12px 0;"></div>
+
+{% call bracket_frame() %}
 <header>
     <h1>Live Stats</h1>
     <p class="subtitle">these are being sent to this server from my brain. im like lain im freakin wired to the internet
@@ -123,5 +178,36 @@
 {% endcall %}
 
 #}
+
+
+<script>
+fetch('/lastfm')
+    .then(r => r.json())
+    .then(data => {
+        const grid = document.getElementById('lastfm-grid');
+        data.albums.forEach(album => {
+            grid.innerHTML += `
+                <div class="lastfm-album">
+                    <img src="${album.image}">
+                    <div class="lastfm-album-info">
+                        <div class="lastfm-album-name">${album.name}</div>
+                        <div class="lastfm-album-artist">${album.artist}</div>
+                    </div>
+                </div>`;
+        });
+
+        const np = data.nowplaying;
+        document.getElementById('np-img').src = np.image;
+        document.getElementById('np-img').style.display = 'block';
+        document.getElementById('np-track').textContent = np.track;
+        document.getElementById('np-artist').textContent = np.artist;
+        document.getElementById('np-status').textContent = np.live ? '▶ now playing' : 'last played';
+
+        document.getElementById('scrobble-count').textContent = Number(data.scrobbles).toLocaleString();
+    })
+    .catch(() => {
+        document.getElementById('lastfm-grid').innerHTML = '<div style="color: rgba(255,255,255,0.3); padding: 12px;">failed to load</div>';
+    });
+</script>
 
 {% endblock %}

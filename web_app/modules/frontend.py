@@ -1,8 +1,11 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, jsonify
 import psutil
 import subprocess
 import time
 from datetime import datetime, timezone, timedelta
+from config import LASTFM_API_KEY
+import requests
+
 
 frontend_bp = Blueprint("frontend", __name__)
 
@@ -30,3 +33,33 @@ def home():
     last_deploy = get_last_deploy()
 
     return render_template("home.html", ram=ram, cpu=cpu, last_deploy=last_deploy)
+
+
+@frontend_bp.route("/lastfm")
+def lastfm():
+    base = {
+        "method": None,
+        "user": "real_artxficial",
+        "api_key": LASTFM_API_KEY,
+        "format": "json"
+    }
+
+    def lfm(method, **kwargs):
+        return requests.get("https://ws.audioscrobbler.com/2.0/", params={**base, "method": method, **kwargs}).json()
+
+    albums = lfm("user.gettopalbums", period="7day", limit=9)
+    recent = lfm("user.getrecenttracks", limit=1)
+    info = lfm("user.getinfo")
+
+    track = recent["recenttracks"]["track"][0]
+
+    return jsonify({
+        "albums": [{"name": a["name"], "artist": a["artist"]["name"], "image": a["image"][3]["#text"]} for a in albums["topalbums"]["album"]],
+        "nowplaying": {
+            "track": track["name"],
+            "artist": track["artist"]["#text"],
+            "image": track["image"][2]["#text"],
+            "live": track.get("@attr", {}).get("nowplaying", False)
+        },
+        "scrobbles": info["user"]["playcount"]
+    })

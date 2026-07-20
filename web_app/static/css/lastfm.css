@@ -1,0 +1,171 @@
+/* =========================
+   WRAPPER (The New Layout)
+========================= */
+.lastfm-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Allows the side panel to drop down cleanly instead of squishing */
+    gap: 24px;
+    width: 100%;
+    max-width: 1100px; 
+    margin-top: 24px;
+}
+
+/* =========================
+   ALBUM GRID
+========================= */
+.lastfm-grid {
+    flex: 0.9; /* The grid takes up 60% of the available row */
+    min-width: 400px; /* Stops the grid from getting too small */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 8px;
+    aspect-ratio: 1 / 1;
+}
+
+.lastfm-album {
+    position: relative;
+    overflow: hidden;
+    background: #111;
+    border-radius: 6px;
+}
+
+.lastfm-album img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* =========================
+   ALBUM TEXT
+========================= */
+.lastfm-album-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 8px;
+    background: linear-gradient(transparent, rgba(0,0,0,0.85));
+    user-select: text;
+}
+
+.lastfm-album-name {
+    color: #f0f0f5;
+    font-family: monospace;
+    font-size: 12px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.lastfm-album-artist {
+    color: rgba(255,255,255,.65);
+    font-family: monospace;
+    font-size: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* =========================
+   SIDE PANEL
+========================= */
+.lastfm-side {
+    flex: 1; /* The sidebar takes up 40% of the row */
+    min-width: 340px; /* THE FIX: Horizontal items will NEVER squish smaller than this */
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.lastfm-nowplaying,
+.lastfm-scrobbles {
+    background: rgba(32, 32, 32, 0.55);
+    border-radius: 12px;
+    padding: 24px;
+    flex: 1; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* =========================
+   LABELS
+========================= */
+.lastfm-np-status,
+.lastfm-scrobbles-label {
+    font-family: monospace;
+    font-size: 18px;
+    color: #888896;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.lastfm-np-status::before,
+.lastfm-scrobbles-label::before { content: "[ "; color: #555561; }
+.lastfm-np-status::after,
+.lastfm-scrobbles-label::after { content: " ]"; color: #555561; }
+
+/* =========================
+   NOW PLAYING
+========================= */
+.lastfm-nowplaying-inner {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px; 
+}
+
+.lastfm-nowplaying img {
+    width: 150px; 
+    height: 150px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.lastfm-np-text {
+    flex: 1;
+    min-width: 0; /* Forces text to truncate instead of stretching the box */
+}
+
+.lastfm-np-track {
+    font-family: sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #f0f0f5;
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.lastfm-np-artist {
+    margin-top: 4px;
+    font-family: sans-serif;
+    font-size: 20px;
+    color: rgba(255,255,255,.6);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* =========================
+   SCROBBLES
+========================= */
+.lastfm-scrobbles-count {
+    margin-top: 16px; 
+    font-family: monospace;
+    font-size: 48px;
+    font-weight: 700;
+    line-height: 1;
+    color: #47dcf3;
+    overflow-wrap: anywhere;
+}

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/brackets.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/readme.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/lastfm.css') }}">
 
     <meta name="theme-color" content="#39c5bb">
     <meta property="og:site_name" content="artxficial.dev">
@@ -90,10 +91,14 @@
 
             <!-- ===== FOOTER ===== -->
 
-            <footer>
-                people always ask you, would u rather eat a poop sandwich or a million dollars. id obviously eat a million dollars. who the hell would eat a poop sandwich? thats disgusting <br>
-            </footer>
-
+<footer>
+    <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px; justify-content: center;">
+        <span style="height: 1px; flex: 1; max-width: 100%; background: rgba(255,255,255,0.08);"></span>
+        <span class="footer-badge" style="font-size: 10px; padding: 2px 10px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.08);">co-authored with claude</span>
+        <span style="height: 1px; flex: 1; max-width: 100%; background: rgba(255,255,255,0.08);"></span>
+    </div>
+    <div class="footer-quote">people always ask you, would u rather eat a poop sandwich or a million dollars. id obviously eat a million dollars. who the hell would eat a poop sandwich? thats disgusting</div>
+</footer>
 
         </div>
 

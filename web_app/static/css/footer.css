@@ -1,21 +1,24 @@
-/* === Footer === */
-
 footer {
     padding-top: 24px;
     font-family: 'Outfit', monospace;
-    font-size: 14px;
-    color: #47dcf3;
+    font-size: 13px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
 }
 
-.disclaimer {
-    animation: blur-glitch 5s infinite ease-in-out;
-    display: inline-block;
+.footer-quote {
+    margin-top: 12px;
+    color: rgba(255,255,255,0.25);
 }
 
-@keyframes blur-glitch {
-    0% { filter: blur(4px); }
-    30% { filter: blur(2.4px); }
-    50% { filter: blur(3px); }
-    90% { filter: blur(2.1px); }
-    100% { filter: blur(4px); }
+.footer-badge {
+    font-size: 10px;
+    color: rgba(255,255,255,0.25);
+    padding: 2px 10px;
+    border-radius: 99px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+@keyframes gradflow {
+    to { background-position: 200% center; }
 }
