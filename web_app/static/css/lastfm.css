@@ -14,17 +14,17 @@
    ALBUM GRID
 ========================= */
 .lastfm-grid {
-    flex: 0.5; 
-    min-width: 300px; /* Stops the grid from getting too small */
+    flex: 0.8; 
+    min-width: 350px; /* Stops the grid from getting too small */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 8px;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 0.9;
 }
 
 /* PHONE / Small screens where things get stacked vertically */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
     .lastfm-wrapper {
         justify-content: stretch; /* Forces full width alignment when stacked */
     }
