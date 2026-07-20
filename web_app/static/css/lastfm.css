@@ -3,6 +3,7 @@
 ========================= */
 .lastfm-wrapper {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap; /* Allows the side panel to drop down cleanly instead of squishing */
     gap: 24px;
     width: 100%;
@@ -13,13 +14,25 @@
    ALBUM GRID
 ========================= */
 .lastfm-grid {
-    flex: 1; /* The grid takes up 60% of the available row */
+    flex: 0.5; 
     min-width: 300px; /* Stops the grid from getting too small */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 8px;
-    aspect-ratio: 1 / 0.9;
+    aspect-ratio: 1 / 1;
+}
+
+/* PHONE / Small screens where things get stacked vertically */
+@media (max-width: 768px) {
+    .lastfm-wrapper {
+        justify-content: stretch; /* Forces full width alignment when stacked */
+    }
+    
+    .lastfm-grid {
+        flex: 1 1 100%; /* Expands to use the full X space */
+        max-width: 100%; /* Ensures it scales cleanly to screen size */
+    }
 }
 
 .lastfm-album {
@@ -84,10 +97,6 @@
     background: rgba(32, 32, 32, 0.55);
     border-radius: 12px;
     padding: 24px;
-    flex: 1; 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 /* =========================
@@ -162,9 +171,8 @@
 .lastfm-scrobbles-count {
     margin-top: 16px; 
     font-family: monospace;
-    font-size: 48px;
+    font-size: 32px;
     font-weight: 700;
     line-height: 1;
-    color: #47dcf3;
     overflow-wrap: anywhere;
 }
