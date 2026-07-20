@@ -6,7 +6,6 @@
     flex-wrap: wrap; /* Allows the side panel to drop down cleanly instead of squishing */
     gap: 24px;
     width: 100%;
-    max-width: 1100px; 
     margin-top: 24px;
 }
 
@@ -14,13 +13,13 @@
    ALBUM GRID
 ========================= */
 .lastfm-grid {
-    flex: 0.9; /* The grid takes up 60% of the available row */
-    min-width: 400px; /* Stops the grid from getting too small */
+    flex: 1; /* The grid takes up 60% of the available row */
+    min-width: 300px; /* Stops the grid from getting too small */
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 8px;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 0.9;
 }
 
 .lastfm-album {
@@ -135,7 +134,7 @@
 
 .lastfm-np-track {
     font-family: sans-serif;
-    font-size: 30px;
+    font-size: 24px;
     font-weight: 700;
     line-height: 1.2;
     color: #f0f0f5;
@@ -150,7 +149,7 @@
 .lastfm-np-artist {
     margin-top: 4px;
     font-family: sans-serif;
-    font-size: 20px;
+    font-size: 18px;
     color: rgba(255,255,255,.6);
     white-space: nowrap;
     overflow: hidden;
