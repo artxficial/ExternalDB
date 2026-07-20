@@ -181,12 +181,14 @@
 
 
 <script>
-fetch('/lastfm')
-    .then(r => r.json())
-    .then(data => {
+(function() {
+    const renderLastFM = (data) => {
         const grid = document.getElementById('lastfm-grid');
+        if (!grid) return;
+
+        let gridHTML = '';
         data.albums.forEach(album => {
-            grid.innerHTML += `
+            gridHTML += `
                 <div class="lastfm-album">
                     <img src="${album.image}">
                     <div class="lastfm-album-info">
@@ -195,6 +197,7 @@ fetch('/lastfm')
                     </div>
                 </div>`;
         });
+        grid.innerHTML = gridHTML;
 
         const np = data.nowplaying;
         document.getElementById('np-img').src = np.image;
@@ -204,10 +207,30 @@ fetch('/lastfm')
         document.getElementById('np-status').textContent = np.live ? '▶ now playing' : 'last played';
 
         document.getElementById('scrobble-count').textContent = Number(data.scrobbles).toLocaleString();
-    })
-    .catch(() => {
-        document.getElementById('lastfm-grid').innerHTML = '<div style="color: rgba(255,255,255,0.3); padding: 12px;">failed to load</div>';
-    });
+    };
+
+    // 1. Check if the data is saved in the current active window session
+    if (window.__LASTFM_CACHE__) {
+        
+        // Use the memory cache (Tab switch)
+        renderLastFM(window.__LASTFM_CACHE__);
+
+    } else {
+        
+        // No cache found (Page refresh/First load) - Fetch fresh data!
+        fetch('/lastfm')
+            .then(r => r.json())
+            .then(data => {
+                // Save it to the window object for the next tab switch
+                window.__LASTFM_CACHE__ = data;
+                renderLastFM(data);
+            })
+            .catch(() => {
+                const grid = document.getElementById('lastfm-grid');
+                if (grid) grid.innerHTML = '<div style="color: rgba(255,255,255,0.3); padding: 12px;">failed to load</div>';
+            });
+    }
+})();
 </script>
 
 {% endblock %}
