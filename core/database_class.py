@@ -8,13 +8,13 @@ ACTION_MAP = {
     "ListDatastores": {
         "args": [],
         "op_type": "function",
-        "requires": ["token", "place_id"],  # no datastore_name
+        "requires": ["place_id"],  # no datastore_name
         "handler": lambda db, context, data: db.list_datastores(context["place_id"])
     },
 
     "RemoveDatastore": {
         "args": [],
-        "requires": ["token", "place_id", "key"],
+        "requires": ["place_id", "key"],
         "op_type": "function",
         "handler": lambda db, context, data: db.remove_datastore(context["place_id"], data["key"])
     },
