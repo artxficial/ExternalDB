@@ -144,29 +144,28 @@ class DatabaseManager:
     def execute_bulk_read(self, context: dict, payload: Any, data: dict = {}) -> Any:
         """
         Fetches rows per item in payload and returns a combined dict.
-        e.g. [123, 456] -> {123: {"key":123,"value":50}, 456: {"key":456,"value":30}}
         """
         results = {}
         items = payload if isinstance(payload, list) else list(payload.items())
         build_params = context.get("build_params")
 
-        # Safely determine if query returns multiple rows per item
-        query_str = context.get("query_template", "") or ""
-        is_near_rank = "NearRank" in query_str
+        # Determine if individual item query expects multiple rows per item
+        # (Only NearRank queries return multiple rows per item)
+        fetch_multiple_rows = "build_params" in context and context.get("build_params") == ACTION_MAP.get("BulkGetKeysNearRankAsync", {}).get("build_params")
 
         for item in items:
             if isinstance(item, dict):
                 item_data = {**data, **item}
-                key_identifier = item.get("key", item.get("rank", str(item)))
+                key_identifier = item.get("rank", item.get("key", str(item)))
             else:
                 item_data = {**data, "rank": item, "key": item}
                 key_identifier = item
 
+            # Build parameterized query args for this specific item
             params = build_params(item_data) if build_params else [item]
 
-            # Force multi=is_near_rank for execute_single call
-            single_context = {**context, "multi": is_near_rank}
-
+            # Pass multi=fetch_multiple_rows so execute_single knows whether to use fetchall() or fetchone()
+            single_context = {**context, "multi": fetch_multiple_rows}
             results[str(key_identifier)] = self.execute_single(single_context, params)
 
         return results

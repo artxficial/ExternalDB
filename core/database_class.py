@@ -175,11 +175,10 @@ ACTION_MAP = {
         "args": ["list"],
         "op_type": "bulk",
         "multi": True,
-        "defaults": {},
-        # Clamp lower bound to 1 so row_index logic stays valid
+        "defaults": {"spread": 0},
         "build_params": lambda data: [
-            max(1, data["rank"] - data.get("spread", 0)), 
-            data["rank"] + data.get("spread", 0)
+            max(1, (data["rank"] if isinstance(data, dict) else data) - data.get("spread", 0)), 
+            (data["rank"] if isinstance(data, dict) else data) + data.get("spread", 0)
         ],
         "query": """
             SELECT key, value, rank, percentile, total_keys FROM (
