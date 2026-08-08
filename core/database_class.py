@@ -102,12 +102,13 @@ ACTION_MAP = {
         "op_type": "single",
         "multi": False,
         "query": """
-            SELECT value, rank, percentile FROM (
-                SELECT value,
-                    RANK() OVER (ORDER BY value {direction}) AS rank,
-                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile
-                FROM {table}
-            ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
+            SELECT value, rank, percentile, total_keys FROM (
+            SELECT value,
+                RANK() OVER (ORDER BY value {direction}) AS rank,
+                PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile,
+                COUNT(*) OVER () AS total_keys
+            FROM {table}
+        ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
         """
     },
  
@@ -162,12 +163,13 @@ ACTION_MAP = {
         "op_type": "bulk",
         "multi": True,
         "query": """
-            SELECT value, rank, percentile FROM (
-                SELECT value,
-                    RANK() OVER (ORDER BY value {direction}) AS rank,
-                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile
-                FROM {table}
-            ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
+           SELECT value, rank, percentile, total_keys FROM (
+            SELECT value,
+                RANK() OVER (ORDER BY value {direction}) AS rank,
+                PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile,
+                COUNT(*) OVER () AS total_keys
+            FROM {table}
+        ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
         """
     },
 
