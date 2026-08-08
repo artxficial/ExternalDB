@@ -143,14 +143,16 @@ class DatabaseManager:
 
     def execute_bulk_read(self, context: dict, payload: Any, data: dict = {}) -> Any:
         """
-        Fetches one row per key and returns a combined dict.
+        Fetches rows per item in payload and returns a combined dict.
         e.g. [123, 456] -> {123: {"key":123,"value":50}, 456: {"key":456,"value":30}}
-        
-        Forces multi=False so each key returns a single row, not a list.
         """
         results = {}
         items = payload if isinstance(payload, list) else list(payload.items())
         build_params = context.get("build_params")
+
+        # Safely determine if query returns multiple rows per item
+        query_str = context.get("query_template", "") or ""
+        is_near_rank = "NearRank" in query_str
 
         for item in items:
             if isinstance(item, dict):
@@ -162,9 +164,7 @@ class DatabaseManager:
 
             params = build_params(item_data) if build_params else [item]
 
-            # BulkGetKeysNearRankAsync is the ONLY bulk query that returns multiple rows per item.
-            # For everything else (BulkGet, BulkGetRank, etc.), force multi=False to get a single row dict.
-            is_near_rank = "NearRank" in context.get("query_template", "")
+            # Force multi=is_near_rank for execute_single call
             single_context = {**context, "multi": is_near_rank}
 
             results[str(key_identifier)] = self.execute_single(single_context, params)
