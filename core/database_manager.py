@@ -143,18 +143,16 @@ class DatabaseManager:
 
     def execute_bulk_read(self, context: dict, payload: Any, data: dict = {}) -> Any:
         """
-        Fetches rows per item in payload and returns a combined dict.
-        Supports both single-row items (multi=False) and multi-row lists (multi=True).
+        Fetches one row per key and returns a combined dict.
+        e.g. [123, 456] -> {123: {"key":123,"value":50}, 456: {"key":456,"value":30}}
+        
+        Forces multi=False so each key returns a single row, not a list.
         """
         results = {}
         items = payload if isinstance(payload, list) else list(payload.items())
-        
-        # Respect the multi setting defined in ACTION_MAP for this query
-        is_multi = context.get("multi", False)
         build_params = context.get("build_params")
 
         for item in items:
-            # Extract the dictionary/payload data for parameter building
             if isinstance(item, dict):
                 item_data = {**data, **item}
                 key_identifier = item.get("key", item.get("rank", str(item)))
@@ -162,18 +160,16 @@ class DatabaseManager:
                 item_data = {**data, "rank": item, "key": item}
                 key_identifier = item
 
-            # Build parameters if build_params exists, else pass [item]
             params = build_params(item_data) if build_params else [item]
 
-            if is_multi:
-                # execute_single should call .fetchall() when context["multi"] is True
-                results[str(key_identifier)] = self.execute_single({**context, "multi": True}, params)
-            else:
-                # execute_single calls .fetchone()
-                results[str(key_identifier)] = self.execute_single({**context, "multi": False}, params)
+            # BulkGetKeysNearRankAsync is the ONLY bulk query that returns multiple rows per item.
+            # For everything else (BulkGet, BulkGetRank, etc.), force multi=False to get a single row dict.
+            is_near_rank = "NearRank" in context.get("query_template", "")
+            single_context = {**context, "multi": is_near_rank}
+
+            results[str(key_identifier)] = self.execute_single(single_context, params)
 
         return results
-
 
     # ------------------------------------------------------------------
     # BULK WRITE  (executemany — inserts/updates/deletes many rows at once)
