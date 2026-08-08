@@ -107,7 +107,7 @@ ACTION_MAP = {
                     RANK() OVER (ORDER BY value {direction}) AS rank,
                     PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile
                 FROM {table}
-            ) WHERE percentile <= ? ORDER BY percentile ASC LIMIT 1
+            ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
         """
     },
  
@@ -167,7 +167,7 @@ ACTION_MAP = {
                     RANK() OVER (ORDER BY value {direction}) AS rank,
                     PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile
                 FROM {table}
-            ) WHERE percentile >= ? ORDER BY percentile ASC LIMIT 1
+            ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
         """
     },
 
