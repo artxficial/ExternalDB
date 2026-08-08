@@ -27,12 +27,36 @@ ACTION_MAP = {
         "op_type": "single",
         "query": "SELECT value FROM {table} WHERE key = ?"
     },
-    "GetRankAsync": {
+
+    "GetRankDataAsync": {
         "args": ["key"],
         "op_type": "single",
-        # Custom query logic managed in code if it involves heavy window functions
-        "query": "SELECT ROW_NUMBER() OVER (ORDER BY value {direction}) as rank FROM {table} WHERE key = ?" 
+        "query": """
+            SELECT key, value, rank, percentile, total_keys FROM (
+                SELECT key, value,
+                    RANK() OVER (ORDER BY value {direction}) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile,
+                    COUNT(*) OVER () AS total_keys
+                FROM {table}
+            ) WHERE key = ?
+        """
     },
+
+    "BulkGetRankDataAsync": {
+        "args": ["list"],
+        "op_type": "bulk",
+        "multi": True,
+        "query": """
+            SELECT key, value, rank, percentile, total_keys FROM (
+                SELECT key, value,
+                    RANK() OVER (ORDER BY value {direction}) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile,
+                    COUNT(*) OVER () AS total_keys
+                FROM {table}
+            ) WHERE key = ?
+        """
+    },
+
     "RemoveAsync": {
         "args": ["key"],
         "op_type": "single",
@@ -130,20 +154,8 @@ ACTION_MAP = {
     "op_type": "bulk",
     "multi": True,
     "query": "SELECT key, value FROM {table} WHERE key = ?"
-},
-
-    "BulkGetRankAsync": {
-        "args": ["list"],
-        "op_type": "bulk",
-        "multi": True,
-        "query": """
-            SELECT key, rank FROM (
-                SELECT key,
-                    RANK() OVER (ORDER BY value {direction}) AS rank
-                FROM {table}
-            ) WHERE key = ?
-        """
     },
+
 
     "BulkGetValueAtPercentile": {
         "args": ["list"],
@@ -253,7 +265,7 @@ class GetDatastore:
     # ----------------------------------------------------------------------------
     
     def GetAsync(self, key: int) -> Any: ...
-    def GetRankAsync(self, key: int) -> int: ...
+    def GetRankDataAsync(self, key: int) -> dict: ...
     def RemoveAsync(self, key: int) -> None: ...
     def SetAsync(self, key: int, value: Union[int, float]) -> dict: ...
     def IncrementAsync(self, key: int, value: Union[int, float]) -> Union[int, float]: ...
@@ -267,7 +279,7 @@ class GetDatastore:
     def BulkIncrementAsync(self, dictionary: dict) -> None: ...
     def BulkGetAsync(self, list: list) -> dict: ...
     def BulkRemoveAsync(self, list: list) -> None: ...
-    def BulkGetRankAsync(self, list: list) -> dict: ...
+    def BulkGetRankDataAsync(self, list: list) -> dict: ...
     def BulkGetValueAtPercentile(self, list: list) -> dict: ...
     def BulkCompareToSnapshotAsync(self, list: list) -> dict: ...
     def BulkGetKeysNearRankAsync(self, list: list, spread: Optional[int] = None) -> dict: ...

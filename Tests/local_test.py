@@ -120,18 +120,18 @@ def test_read():
         status = "correct" if result == expected else f"WRONG (expected {expected})"
         print(f"         Value: {result} - {status}")
 
-    test("GetRankAsync", bp("GetRankAsync", key=TEST_KEY))
+    test("GetRankDataAsync", bp("GetRankDataAsync", key=TEST_KEY))
     test("GetValueAtPercentile", bp("GetValueAtPercentile", percentile=0.5))
     test("GetKeysNearRankAsync", bp("GetKeysNearRankAsync", rank=1, spread=3))
     test("ListOrderedKeysAsync (no offset)", bp("ListOrderedKeysAsync", limit=10, start_index=None))
     test("ListOrderedKeysAsync (with offset)", bp("ListOrderedKeysAsync", limit=5, start_index=1))
     test("GetAsync (missing key)", bp("GetAsync", key=999999999))
-    test("GetRankAsync (missing key)", bp("GetRankAsync", key=999999999))
+    test("GetRankDataAsync (missing key)", bp("GetRankDataAsync", key=999999999))
 
 
 def test_bulk_read():
     test("BulkGetAsync", bp("BulkGetAsync", list=[TEST_KEY, TEST_KEY + 1, TEST_KEY + 2]))
-    test("BulkGetRankAsync", bp("BulkGetRankAsync", list=[TEST_KEY, TEST_KEY + 1]))
+    test("BulkGetRankDataAsync", bp("BulkGetRankDataAsync", list=[TEST_KEY, TEST_KEY + 1]))
     test("BulkGetValueAtPercentile", bp("BulkGetValueAtPercentile", list=[0.25, 0.5, 0.75]))
     test("BulkGetKeysNearRankAsync", bp("BulkGetKeysNearRankAsync", list=[1, 2, 3], spread=2))
 
