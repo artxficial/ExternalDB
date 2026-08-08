@@ -128,14 +128,14 @@ ACTION_MAP = {
     "BulkGetAsync": {
     "args": ["list"],
     "op_type": "bulk",
-    "multi": True,
+    "multi": False,
     "query": "SELECT key, value FROM {table} WHERE key = ?"
 },
 
     "BulkGetRankAsync": {
         "args": ["list"],
         "op_type": "bulk",
-        "multi": True,
+        "multi": False,
         "query": """
             SELECT key, rank FROM (
                 SELECT key,
@@ -148,7 +148,7 @@ ACTION_MAP = {
     "BulkGetValueAtPercentile": {
         "args": ["list"],
         "op_type": "bulk",
-        "multi": True,
+        "multi": False,
         "query": """
             SELECT value, rank, percentile FROM (
                 SELECT value,
