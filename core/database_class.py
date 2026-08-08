@@ -31,7 +31,7 @@ ACTION_MAP = {
         "args": ["key"],
         "op_type": "single",
         # Custom query logic managed in code if it involves heavy window functions
-        "query": "SELECT ROW_NUMBER() OVER (ORDER BY value DESC) as rank FROM {table} WHERE key = ?" 
+        "query": "SELECT ROW_NUMBER() OVER (ORDER BY value {direction}) as rank FROM {table} WHERE key = ?" 
     },
     "RemoveAsync": {
         "args": ["key"],
@@ -62,6 +62,7 @@ ACTION_MAP = {
         "op_type": "bulk",
         "query": "INSERT INTO {table} (key, value) VALUES (?, ?) ON CONFLICT(key) DO UPDATE SET value = value + excluded.value"
     },
+
     "BulkRemoveAsync": {
         "args": ["list"],
         "op_type": "bulk",
@@ -79,8 +80,8 @@ ACTION_MAP = {
         "query": """
             SELECT value, rank, percentile FROM (
                 SELECT value,
-                    RANK() OVER (ORDER BY value DESC) AS rank,
-                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile
+                    RANK() OVER (ORDER BY value {direction}) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile
                 FROM {table}
             ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
         """
@@ -95,13 +96,13 @@ ACTION_MAP = {
         "query": """
             SELECT key, value, rank, percentile, total_keys FROM (
                 SELECT key, value,
-                    ROW_NUMBER() OVER (ORDER BY value DESC) AS row_index,
-                    RANK() OVER (ORDER BY value DESC) AS rank,
-                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile,
+                    ROW_NUMBER() OVER (ORDER BY value {direction}) AS row_index,
+                    RANK() OVER (ORDER BY value {direction}) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile,
                     COUNT(*) OVER () AS total_keys
                 FROM {table}
             ) WHERE row_index >= ? AND row_index < ?
-            ORDER BY value DESC
+            ORDER BY value {direction}
         """
     },
  
@@ -114,13 +115,13 @@ ACTION_MAP = {
         "query": """
             SELECT key, value, rank, percentile, total_keys FROM (
                 SELECT key, value,
-                    ROW_NUMBER() OVER (ORDER BY value DESC) AS row_index,
-                    RANK() OVER (ORDER BY value DESC) AS rank,
-                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile,
+                    ROW_NUMBER() OVER (ORDER BY value {direction}) AS row_index,
+                    RANK() OVER (ORDER BY value {direction}) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile,
                     COUNT(*) OVER () AS total_keys
                 FROM {table}
             ) WHERE row_index >= ? AND row_index < ? + ?
-            ORDER BY value DESC
+            ORDER BY value {direction}
         """
     },
 
@@ -138,7 +139,7 @@ ACTION_MAP = {
         "query": """
             SELECT key, rank FROM (
                 SELECT key,
-                    RANK() OVER (ORDER BY value DESC) AS rank
+                    RANK() OVER (ORDER BY value {direction}) AS rank
                 FROM {table}
             ) WHERE key = ?
         """
@@ -151,8 +152,8 @@ ACTION_MAP = {
         "query": """
             SELECT value, rank, percentile FROM (
                 SELECT value,
-                    RANK() OVER (ORDER BY value DESC) AS rank,
-                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile
+                    RANK() OVER (ORDER BY value {direction}) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile
                 FROM {table}
             ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
         """
@@ -163,19 +164,23 @@ ACTION_MAP = {
         "op_type": "bulk",
         "multi": True,
         "defaults": {},
-        "build_params": lambda data: [data["rank"] - data["spread"], data["rank"] + data["spread"]],
+        # Clamp lower bound to 1 so row_index logic stays valid
+        "build_params": lambda data: [
+            max(1, data["rank"] - data.get("spread", 0)), 
+            data["rank"] + data.get("spread", 0)
+        ],
         "query": """
             SELECT key, value, rank, percentile, total_keys FROM (
                 SELECT key, value,
-                    ROW_NUMBER() OVER (ORDER BY value DESC) AS row_index,
-                    RANK() OVER (ORDER BY value DESC) AS rank,
-                    PERCENT_RANK() OVER (ORDER BY value DESC) AS percentile,
+                    ROW_NUMBER() OVER (ORDER BY value {direction}) AS row_index,
+                    RANK() OVER (ORDER BY value {direction}) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile,
                     COUNT(*) OVER () AS total_keys
                 FROM {table}
-            ) WHERE row_index >= ? AND row_index < ?
-            ORDER BY value DESC
+            ) WHERE row_index >= ? AND row_index <= ?
+            ORDER BY value {direction}
         """
-    },
+    }
 }
 
 DEFAULT_CONFIGURATIONS = {

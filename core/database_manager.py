@@ -1,3 +1,4 @@
+from multiprocessing import context
 import os
 import sqlite3
 from typing import Any
@@ -63,6 +64,7 @@ class DatabaseManager:
 
     def execute(self, action_spec: dict, context: dict, data: dict) -> Any:
         op_type = action_spec["op_type"]
+        context = {**context, "ascending": data.get("ascending", False)}
 
         if op_type == "single":
             # Build the SQL params list, either via a custom lambda or
@@ -115,7 +117,8 @@ class DatabaseManager:
             cursor.execute(f"CREATE TABLE IF NOT EXISTS {table} (key INTEGER PRIMARY KEY, value INTEGER DEFAULT 0)")
             cursor.execute(f"CREATE INDEX IF NOT EXISTS idx_{table}_value ON {table}(value DESC)")
 
-            query = query_template.format(table=table)
+            direction = "ASC" if context.get("ascending") else "DESC"
+            query = query_template.format(table=table, direction=direction)
             cursor.execute(query, params)
 
             if query.strip().upper().startswith("SELECT"):
@@ -140,21 +143,34 @@ class DatabaseManager:
 
     def execute_bulk_read(self, context: dict, payload: Any, data: dict = {}) -> Any:
         """
-        Fetches one row per key and returns a combined dict.
-        e.g. [123, 456] -> {123: {"key":123,"value":50}, 456: {"key":456,"value":30}}
-        
-        Forces multi=False so each key returns a single row, not a list.
+        Fetches rows per item in payload and returns a combined dict.
+        Supports both single-row items (multi=False) and multi-row lists (multi=True).
         """
         results = {}
-        keys = list(payload) if isinstance(payload, list) else list(payload.keys())
+        items = payload if isinstance(payload, list) else list(payload.items())
+        
+        # Respect the multi setting defined in ACTION_MAP for this query
+        is_multi = context.get("multi", False)
+        build_params = context.get("build_params")
 
-        # Override multi to False — we're fetching one row per key intentionally
-        single_context = {**context, "multi": False}
+        for item in items:
+            # Extract the dictionary/payload data for parameter building
+            if isinstance(item, dict):
+                item_data = {**data, **item}
+                key_identifier = item.get("key", item.get("rank", str(item)))
+            else:
+                item_data = {**data, "rank": item, "key": item}
+                key_identifier = item
 
-        for key in keys:
-            build_params = context.get("build_params")
-            params = build_params({**data, "rank": key}) if build_params else [key]
-            results[key] = self.execute_single(single_context, params)
+            # Build parameters if build_params exists, else pass [item]
+            params = build_params(item_data) if build_params else [item]
+
+            if is_multi:
+                # execute_single should call .fetchall() when context["multi"] is True
+                results[str(key_identifier)] = self.execute_single({**context, "multi": True}, params)
+            else:
+                # execute_single calls .fetchone()
+                results[str(key_identifier)] = self.execute_single({**context, "multi": False}, params)
 
         return results
 
@@ -177,7 +193,9 @@ class DatabaseManager:
 
         conn = self._get_connection(place_id)
         cursor = conn.cursor()
-        query = query_template.format(table=table)
+
+        direction = "ASC" if context.get("ascending") else "DESC"
+        query = query_template.format(table=table, direction=direction)
 
         try:
             if isinstance(payload, dict):

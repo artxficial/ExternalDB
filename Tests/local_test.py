@@ -69,6 +69,7 @@ def bp(action, **kwargs):
         "action": action,
         "datastore_name": DATASTORE,
         "place_id": PLACE_ID,
+        "ascending": True,
         **kwargs,
     }
 
