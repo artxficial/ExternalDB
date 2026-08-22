@@ -163,6 +163,7 @@ function playIntroAnimation() {
 
     bgVideo.style.display = 'none';
     introVideo.style.display = 'block';
+    introVideo.volume = 0.5; // 0.0 (silent) to 1.0 (full)
     introVideo.play();
     document.getElementById('intro-text').style.display = 'none';
     document.getElementById('intro').classList.add('playing');
