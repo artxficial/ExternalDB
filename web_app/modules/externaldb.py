@@ -99,17 +99,39 @@ def get_requests_per_minute():
     cutoff = datetime.now() - timedelta(minutes=1)
     count = 0
 
-    with open(log_path, "r", encoding="utf-8") as f:
-        for line in f:
-            if "/externaldb/api" not in line:
-                continue
-            try:
-                ts_str = line[1:15]  # grabs "07-19 21:51:00"
-                ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(year=datetime.now().year)
+    with open(log_path, "rb") as f:
+        f.seek(0, os.SEEK_END)
+        file_size = f.tell()
+        block_size = 8192
+        buffer = b""
+        pos = file_size
+        stop = False
+
+        while pos > 0 and not stop:
+            read_size = min(block_size, pos)
+            pos -= read_size
+            f.seek(pos)
+            buffer = f.read(read_size) + buffer
+
+            lines = buffer.split(b"\n")
+            buffer = lines[0]  # partial line, carried to next chunk
+            complete_lines = lines[1:] if pos > 0 else lines
+
+            for raw_line in reversed(complete_lines):
+                line = raw_line.decode("utf-8", errors="ignore")
+                if "/externaldb/api" not in line:
+                    continue
+                try:
+                    ts_str = line[1:15]
+                    ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(year=datetime.now().year)
+                except ValueError:
+                    continue
+
                 if ts >= cutoff:
                     count += 1
-            except ValueError:
-                continue
+                else:
+                    stop = True
+                    break
 
     return count
 # =========================================================
