@@ -59,20 +59,37 @@ def get_last_request():
     if not os.path.exists(log_path):
         return "Never"
 
-    last_ts = None
+    with open(log_path, "rb") as f:
+        f.seek(0, os.SEEK_END)
+        file_size = f.tell()
+        block_size = 8192
+        buffer = b""
+        pos = file_size
 
-    with open(log_path, "r", encoding="utf-8") as f:
-        for line in f:
-            if "/externaldb/" not in line:
-                continue
-            try:
-                ts_str = line[1:15]
-                ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(year=datetime.now().year, tzinfo=timezone.utc)
-                last_ts = ts
-            except ValueError:
-                continue
+        while pos > 0:
+            read_size = min(block_size, pos)
+            pos -= read_size
+            f.seek(pos)
+            buffer = f.read(read_size) + buffer
 
-    return last_ts.astimezone(EST).strftime("[%m/%d] %I:%M %p") if last_ts else "Never"
+            lines = buffer.split(b"\n")
+            # keep scanning backwards through lines we have so far
+            for raw_line in reversed(lines[1:] if pos > 0 else lines):
+                line = raw_line.decode("utf-8", errors="ignore")
+                if "/externaldb/" not in line:
+                    continue
+                try:
+                    ts_str = line[1:15]
+                    ts = datetime.strptime(ts_str, "%m-%d %H:%M:%S").replace(
+                        year=datetime.now().year, tzinfo=timezone.utc
+                    )
+                    return ts.astimezone(EST).strftime("[%m/%d] %I:%M %p")
+                except ValueError:
+                    continue
+
+            buffer = lines[0]  # leftover partial line, prepend on next loop
+
+    return "Never"
 
 def get_requests_per_minute():
     log_path = os.path.join(LOG_DIR, "access.log")
