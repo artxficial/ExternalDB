@@ -7,6 +7,8 @@ from core.auth import check_token, require_token
 
 
 import logging 
+from collections import deque
+
 logger = logging.getLogger(__name__)
 
 
@@ -250,9 +252,9 @@ def stream_logs():
 
     if os.path.exists(file_path):
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
-                lines = f.readlines()
-                return "".join(lines[-40:])
+            with open(file_path, "r", encoding="utf-8", errors="replace") as f:
+                last_lines = deque(f, maxlen=40)  # only ever holds 40 lines
+            return "".join(last_lines)
         except Exception as e:
             return f"[SYSTEM ERROR] Failed to read log file: {str(e)}", 500
 
