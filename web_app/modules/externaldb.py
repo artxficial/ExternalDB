@@ -239,6 +239,29 @@ def log_incoming_payloads():
             logger.error(f"[PAYLOAD LOGGER ERROR] Failed to parse payload: {e}")
 
 
+def tail(file_path, n=40, chunk_size=8192):
+    """Read the last n lines of a file efficiently, without scanning the whole file."""
+    with open(file_path, "rb") as f:
+        f.seek(0, os.SEEK_END)
+        file_size = f.tell()
+        blocks = []
+        lines_found = 0
+        pos = file_size
+
+        while pos > 0 and lines_found <= n:
+            read_size = min(chunk_size, pos)
+            pos -= read_size
+            f.seek(pos)
+            chunk = f.read(read_size)
+            blocks.append(chunk)
+            lines_found += chunk.count(b"\n")
+
+        data = b"".join(reversed(blocks))
+        lines = data.splitlines()
+        last_n = lines[-n:] if len(lines) >= n else lines
+        return b"\n".join(last_n).decode("utf-8", errors="replace") + "\n"
+
+
 @externaldb_bp.route("/api/logs/stream", methods=["POST"])
 @require_token
 def stream_logs():
@@ -252,9 +275,7 @@ def stream_logs():
 
     if os.path.exists(file_path):
         try:
-            with open(file_path, "r", encoding="utf-8", errors="replace") as f:
-                last_lines = deque(f, maxlen=40)  # only ever holds 40 lines
-            return "".join(last_lines)
+            return tail(file_path, n=40)
         except Exception as e:
             return f"[SYSTEM ERROR] Failed to read log file: {str(e)}", 500
 
