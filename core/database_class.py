@@ -159,17 +159,22 @@ ACTION_MAP = {
 
 
     "BulkGetValueAtPercentile": {
-        "args": ["list"],
+        "args": ["list", "minimum_value"],
         "op_type": "bulk",
         "multi": True,
         "query": """
-           SELECT value, rank, percentile, total_keys FROM (
-            SELECT value,
-                RANK() OVER (ORDER BY value {direction}) AS rank,
-                PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile,
-                COUNT(*) OVER () AS total_keys
-            FROM {table}
-        ) WHERE percentile <= ? ORDER BY percentile DESC LIMIT 1
+            SELECT value, rank, percentile, total_keys
+            FROM (
+                SELECT value,
+                    RANK() OVER (ORDER BY value {direction}) AS rank,
+                    PERCENT_RANK() OVER (ORDER BY value {direction}) AS percentile,
+                    COUNT(*) OVER () AS total_keys
+                FROM {table}
+                WHERE (? IS NULL OR value >= ?)
+            )
+            WHERE percentile <= ?
+            ORDER BY percentile DESC
+            LIMIT 1
         """
     },
 
@@ -281,7 +286,7 @@ class GetDatastore:
     def BulkGetAsync(self, list: list) -> dict: ...
     def BulkRemoveAsync(self, list: list) -> None: ...
     def BulkGetRankDataAsync(self, list: list) -> dict: ...
-    def BulkGetValueAtPercentile(self, list: list) -> dict: ...
+    def BulkGetValueAtPercentile(self, list: list, minimum_value: Optional[Union[int, float]] = None) -> dict: ...
     def BulkCompareToSnapshotAsync(self, list: list) -> dict: ...
     def BulkGetKeysNearRankAsync(self, list: list, spread: Optional[int] = None) -> dict: ...
 
